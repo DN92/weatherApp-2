@@ -1,7 +1,7 @@
 export {};
 
 declare global {
-  export interface openWeatherApiByCity {
+  interface openWeatherApiByCity {
     name: string,
     local_names?: string
     lat: string,
@@ -10,7 +10,7 @@ declare global {
     state?: string,
   }
 
-  export interface openWeatherApiByZip {
+  interface openWeatherApiByZip {
     zip: string,
     name: string,
     lat: string,
@@ -18,9 +18,9 @@ declare global {
     country: string
   }
 
-  export type openWeatherApiLocation = openWeatherApiByCity | openWeatherApiByZip
+  type openWeatherApiLocation = openWeatherApiByCity | openWeatherApiByZip
 
-  export interface geoCodeOptions {
+  interface geoCodeOptions {
     key?: string | undefined,
     version?: string,
     limit?: string,
@@ -30,7 +30,7 @@ declare global {
 
   interface weatherData {
     coord?: {lon: number, lat: number},
-    weather?: summary,
+    weather?: Array<weatherSummary>,
     base?: string,
     main?: weatherVariables,
     visibility?: number,
@@ -40,10 +40,32 @@ declare global {
     sys?: weatherSYS,
     timezone?: number,
     id?: number,
-    name?: 'string',
+    name?: string,
     cod?: number,
   }
+
+  interface weatherSummary {
+    id?: number,
+    main?: string,
+    description?: string,
+    icon?: string
+  }
+
+  interface weatherVariables {
+    temp?: number,
+    feels_like?: number,
+    temp_min?: number,
+    temp_max?: number,
+    pressure?: number,
+    humidity?: number,
+    sea_level?: number,
+    grnd_level?: number,
+    temp_kf?: number
+  }
+
 }
+
+// end global declaration
 
 interface weatherSYS {
   country?: string,
@@ -61,20 +83,4 @@ interface weatherWind {
   gust?: number,
 }
 
-interface weatherVariables {
-  temp?: number,
-  feels_like?: number,
-  temp_min?: number,
-  temp_max?: number,
-  pressure?: number,
-  humidity?: number,
-  sea_level?: number,
-  grnd_level?: number,
-}
 
-interface summary {
-  id?: number,
-  main?: string,
-  description?: string,
-  icon?: string
-}

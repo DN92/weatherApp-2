@@ -1,33 +1,11 @@
 'use client'
 
 import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
 import { Paper, TextInput, Button, Text, Group, Select } from "@mantine/core"
 import { useState, useEffect} from 'react'
 import states from '../../utility/statesDictionary'
 import useLocationFromGeoApi from '../../hooks/useLocationFromGeoApi'
-
-function getBackgroundImage(): string {
-  const source = '/images/background-1.avif'
-  return `url(${source})`
-}
-
-const homeStyles: React.CSSProperties = {
-  position: 'static',
-  height: '100vh',
-  backgroundImage: getBackgroundImage(),
-  backgroundSize: 'cover'
-}
-
-const paperWrapperStyles: React.CSSProperties = {
-  position: 'absolute',
-  left: '50%',
-  top: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: '1200px'
-}
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 
 const stateSelectorData = Object.keys(states)
   .concat('')
@@ -36,7 +14,7 @@ const stateSelectorData = Object.keys(states)
   .map(state => ({value: state, label: state, key: state+Math.floor(Math.random() * 10000)}))
 
 const Home: NextPage = () => {
-
+  const history = useRouter()
   const [userZip, setUserZip] = useState('')
   const [userCity, setUserCity] = useState('')
   const [userState, setUserState] = useState('')
@@ -44,9 +22,15 @@ const Home: NextPage = () => {
   const [formError, setFormError] = useState('')
   const [lon, lat, getCoordinates] = useLocationFromGeoApi(setFetchError, setFormError)
 
+  // useEffect(() => {
+  //   console.log('lon lat :: ', lon, lat)
+  // }, [lon, lat])
+
   useEffect(() => {
-    console.log('lon lat :: ', lon, lat)
-  }, [lon, lat])
+    if(!!lon && !!lat) {
+      history.push(`/myWeather/?lat=${lat}&lon=${lon}`)
+    }
+  }, [lon, lat, history])
 
 
   return (
