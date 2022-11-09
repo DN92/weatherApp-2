@@ -1,6 +1,5 @@
 'use client'
 
-import type { NextPage } from 'next'
 import { Paper, TextInput, Button, Text, Group, Select } from "@mantine/core"
 import { useState, useEffect} from 'react'
 import states from '../../utility/statesDictionary'
@@ -13,7 +12,7 @@ const stateSelectorData = Object.keys(states)
   .sort()
   .map(state => ({value: state, label: state, key: state+Math.floor(Math.random() * 10000)}))
 
-const Home: NextPage = () => {
+const Home = () => {
   const history = useRouter()
   const [userZip, setUserZip] = useState('')
   const [userCity, setUserCity] = useState('')
@@ -39,7 +38,6 @@ const Home: NextPage = () => {
         className='TEST'
       >
         <Paper withBorder p='lg'>
-
             <Group position='apart'>
               <Text size='xl' weight={500}>
                 Get the Weather!
