@@ -1,0 +1,19 @@
+:root {
+
+  /* size : screen and other */
+
+  --SSxs: 480px;
+  --SSsm: 768px;
+  --SSmd: 1024px;
+  --SSlg: 1280px;
+  --SSxl: 40000px;
+
+  /* fonts */
+
+  --FSxs: .6rem;
+  --FSsm: .75rem;
+  --FSmd: 1rem;
+  --FSlg: 1.5rem;
+  --FSxl: 2.5rem;
+
+}

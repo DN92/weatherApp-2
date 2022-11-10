@@ -41,6 +41,7 @@ export async function getGeoCodeByCity(
       const resultArr = data.filter(ele => ele.state?.toLowerCase() === state)
 
       if (resultArr.length > 0) {
+        console.log('THIS:: ', resultArr[0])
         successSetter(resultArr[0])
       } else if (errorSetter) {
         errorSetter(response.statusText)
@@ -71,6 +72,7 @@ export async function getGeoCodeByCity(
     if (response.status >= 200 && response.status <= 299) {
       const data: openWeatherApiByZip = await response.json()
       if(data) {
+        console.log('THIS:: ', data)
         successSetter(data)
       }
     } else if (errorSetter) {

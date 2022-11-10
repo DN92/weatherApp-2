@@ -1,9 +1,9 @@
+
 const Layout = ({children}: children) => {
   return (
-  <main className="paper-wrapper"
-  >
-  {children}
-  </main>
+    <main className="myWeather-layout center" >
+        {children}
+    </main>
   )
 }
 

@@ -5,7 +5,6 @@ import { useState, useEffect} from 'react'
 import states from '../../utility/statesDictionary'
 import useLocationFromGeoApi from '../../hooks/useLocationFromGeoApi'
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
-
 const stateSelectorData = Object.keys(states)
   .concat('')
   .concat('')

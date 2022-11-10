@@ -1,0 +1,52 @@
+.myWeather-layout {
+  height: 80%;
+  width: 80%;
+  background: linear-gradient(rgba(100, 149, 237, .2), rgba(40,143,191, .2));
+  border-radius: 20px;
+}
+
+.weather-today-container {
+  margin: auto;
+  width: 100%;
+}
+
+.weather-today-header {
+  display: flex;
+  justify-content: space-around;
+  align-items: baseline;
+  padding: 1rem;
+}
+
+.weather-today-grid {
+  box-sizing: border-box;
+  padding: 0 1rem;
+  /* margin: 0;
+  padding: 0; */
+  display: grid;
+  gap: 1.5rem;
+  /* grid-template-columns: repeat(3, 1fr); */
+  grid-template-areas:
+    'one'
+    'two'
+    'three'
+    'four'
+    'five'
+    'six';
+}
+
+.weather-today-grid > * {
+  margin: 0;
+  padding: 0;
+}
+
+.weather-today-flx-row {
+  display: flex;
+  justify-content: space-around;
+}
+
+
+  @media (min-width: 480px) {
+    .weather-today-container {
+
+    }
+  }
