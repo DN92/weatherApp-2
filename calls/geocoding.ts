@@ -33,7 +33,8 @@ export async function getGeoCodeByCity(
     }
 
     const response= await fetch(
-      path+version+'/direct?q='+city+'&limit='+limit+'&appid='+key
+      path+version+'/direct?q='+city+'&limit='+limit+'&appid='+key,
+      {next: {revalidate: 60 * 60}}
     )
     if (response.status >= 200 && response.status <= 299) {
       const data: Array<openWeatherApiByCity> = await response.json()
@@ -66,7 +67,7 @@ export async function getGeoCodeByCity(
     }
 
     const response = await fetch(
-      path+version+'/zip?zip='+zipCode+'&appid='+key
+      path+version+'/zip?zip='+zipCode+'&appid='+key, {next: {revalidate: 60 * 60}}
     )
 
     if (response.status >= 200 && response.status <= 299) {

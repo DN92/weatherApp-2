@@ -31,12 +31,12 @@ const TheTime = () => {
   }, [])
 
   return (
-    <>
-      <p>{screenSize < 1290 ? 'The Time is' : ''} {theHour}
+    <div className='weather-today-clock'>
+      <p>{screenSize > 800 ? 'The Time is' : ''} {theHour}
       <span style={{opacity: (flashSemiColon ? 0 : 1)}}>:</span>
       {theMinute}
       </p>
-    </>
+    </div>
   )
 }
 

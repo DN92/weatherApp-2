@@ -8,3 +8,51 @@
 .opactiy-zero {
   opacity: 0;
 }
+
+.icon-wrapper {
+  width: 6rem;
+  height: 6rem;
+  background-color: rgba(173 , 216 ,230, .4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.icon {
+  color: purple;
+  font-size: 4rem;
+}
+
+.icon::before {
+}
+
+.purple-text {
+  color: purple;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.FSxl {
+  font-size: var(--FSxl)!important;
+}
+.FSlg {
+  font-size:var(--FSlg)!important;
+}
+.FSml {
+  font-size: var(--FSml)!important;
+}
+.FSmd {
+  font-size:var(--FSmd)!important;
+}
+.FSsm {
+  font-size:var(--FSsm)!important;
+}
+.FSxs {
+  font-size:var(--FSxs)!important;
+}

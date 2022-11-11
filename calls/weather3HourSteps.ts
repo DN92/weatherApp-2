@@ -12,7 +12,7 @@ export default async function getWeather3HourSteps(
   const domain = 'https://api.openweathermap.org'
   const path = `/data/2.5/forecast?lat=${lat}&lon=${lon}&units=${units}&cnt=${count}&appid=${key}`
 
-  const response = await fetch(domain+path, {next: {revalidate: 60}})
+  const response = await fetch(domain+path, {next: {revalidate: 60* 60}})
   if (response.status >= 200 && response.status <= 299) {
     const data = await response.json()
     // console.log('weather3hourSteps:: ', data)

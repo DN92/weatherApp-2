@@ -11,7 +11,7 @@ export default async function getWeatherNow(
   const domain =  'https://api.openweathermap.org'
   const path = `/data/2.5/weather?lat=${lat}&lon=${lon}&units=${units}&appid=${key}`
 
-  const response = await fetch(domain+path, {next: {revalidate: 60}})
+  const response = await fetch(domain+path, {next: {revalidate: 60* 60}})
   if (response.status >= 200 && response.status <= 299) {
     const data = await response.json()
     // console.log('weatherData:: ', data)

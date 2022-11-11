@@ -5,7 +5,7 @@ export default async function getTimeZone(lat: string, lon: string) {
   }
   const domain = ' http://api.geonames.org'
   const path = `timezoneJSON?lat=${lat}&lng=${lon}&username=${process.env.GEONAMES_API_USERNAME}`
-  const response = await fetch(domain + path)
+  const response = await fetch(domain + path,  {next: {revalidate: 60 * 60}})
   console.log('RESPONSE:: ', response)
   return response
 }

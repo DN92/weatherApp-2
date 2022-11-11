@@ -10,10 +10,12 @@
 
   /* fonts */
 
-  --FSxs: .6rem;
-  --FSsm: .75rem;
-  --FSmd: 1rem;
-  --FSlg: 1.5rem;
-  --FSxl: 2.5rem;
+  --FSxxs: .75rem;
+  --FSxs: .875rem;
+  --FSsm: 1rem;
+  --FSmd: 1.25rem;
+  --FSml: 1.625rem;
+  --FSlg: 2rem;
+  --FSxl: 3rem;
 
 }
