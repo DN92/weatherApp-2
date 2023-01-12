@@ -3,31 +3,43 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
+import LoadingSun from '../images/loadingSun.gif'
+import styles from '../CSS/loading-wrapper.module.css'
 
-import {Test} from './test-component'
+console.log('styles check', typeof styles.loadingWrapper)
 
 const AppHome = () => {
 
   const router = useRouter()
-  const [dotsCounter, setDotsCounter] = useState(0)
+  const [trailingDotsCounter, setTrailingDotsCounter] = useState(0)
 
   useEffect(() => {
     const interval = setInterval(() => {
       console.log('interval')
-      setDotsCounter(dotsCounter => dotsCounter > 2 ? 0 : dotsCounter + 1)
+      setTrailingDotsCounter(dotsCounter => dotsCounter > 2 ? 0 : dotsCounter + 1)
     }, 650)
     setTimeout(() => {
-      console.log('timeout finished')
       clearInterval(interval)
       router.push('/home')
-    }, 100)
+    }, 126000)
     return () => {
       clearInterval(interval)
     }
-  }, [])  // linter is wrong about removing dep array, interval will rerun on unmount.
+  }, [router])
 
   return (
-    <p>Redirecting{'.'.repeat(dotsCounter)}</p>
+    <>
+      <p>Redirecting{'.'.repeat(trailingDotsCounter)}</p>
+      <div className={`${styles.loadingWrapper}`} >
+        <Image
+          src={LoadingSun}
+          alt="loading sun gif"
+          height='200'
+          width='200'
+        />
+      </div>
+    </>
   )
 
   // return <Test />

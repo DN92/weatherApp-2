@@ -1,4 +1,4 @@
-.myWeather-layout {
+.my_weather_layout {
   height: 95%;
   width: 90%;
   background: linear-gradient(rgba(100, 149, 237, .2), rgba(40,143,191, .2));
@@ -7,19 +7,19 @@
   overflow-y: scroll;
 }
 
-.weather-today-container {
+.weather_today_container {
   margin: auto;
   width: 100%;
 }
 
-.weather-today-header {
+.weather_today_header {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   padding: 1rem 2rem;
 }
 
-.weather-today-grid {
+.weather_today_grid {
   box-sizing: border-box;
   padding: 0 1rem;
   /* margin: 0;
@@ -36,24 +36,24 @@
     'six';
 }
 
-.weather-today-grid p {
+.weather_today_grid p {
   color: rgb(96, 2, 96);
   font-weight: bold;
   text-align: center;
   font-size: var(--FSmd)
 }
 
-.weather-today-grid-child {
+.weather_today_grid_child {
   background-color: rgba(0, 128, 128, .7);
   display: flex;
   justify-content: space-between;
 }
 
-.weather-today-grid-child > p {
+.weather_today_grid_child > p {
   word-wrap:break-word;
 }
 
-.weather-today-grid-child > *:nth-child(1) {
+.weather_today_grid_child > *:nth-child(1) {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -66,7 +66,7 @@
   padding: 0;
 }
 
-.weather-today_p > p {
+.weather_today_p > p {
   box-sizing: border-box;
   padding: .25rem;
 }

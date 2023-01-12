@@ -1,4 +1,4 @@
-import './(CSS)/index.css'
+import '../CSS/index.css'
 
 export default function AppLayout({children}: children) {
   return (

@@ -4,7 +4,7 @@ import { Paper, TextInput, Button, Text, Group, Select } from "@mantine/core"
 import { useState, useEffect} from 'react'
 import states from '../../utility/statesDictionary'
 import useLocationFromGeoApi from '../../hooks/useLocationFromGeoApi'
-import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 const stateSelectorData = Object.keys(states)
   .concat('')
   .concat('')
@@ -16,13 +16,10 @@ const Home = () => {
   const [userZip, setUserZip] = useState('')
   const [userCity, setUserCity] = useState('')
   const [userState, setUserState] = useState('')
+  const [enableZip, setEnableZip] = useState(false)
   const [fetchError, setFetchError] = useState('')
   const [formError, setFormError] = useState('')
   const [lon, lat, getCoordinates] = useLocationFromGeoApi(setFetchError, setFormError)
-
-  // useEffect(() => {
-  //   console.log('lon lat :: ', lon, lat)
-  // }, [lon, lat])
 
   useEffect(() => {
     if(!!lon && !!lat) {
@@ -44,9 +41,20 @@ const Home = () => {
             </Group>
             <Group position='apart' mb='xs'>
               <Text size='lg'>
-                Enter a City and get the weather
+                Select Desired Location
               </Text>
             </Group>
+
+            <Button
+              variant='gradient'
+              size='md'
+              onClick={() => {
+                setEnableZip(prev => !prev)
+              }}
+            >{enableZip ? 'Use City and State' : 'Use Zip Code'}</Button>
+
+          {
+          !enableZip &&
             <Group>
               <Group position='apart'>
                 <TextInput
@@ -69,14 +77,20 @@ const Home = () => {
                 />
               </Group>
             </Group>
+          }
+
+          {
+            enableZip &&
             <Group position='apart'>
-                <TextInput
-                  label="zipCode"
-                  placeholder='5 digit zip code'
-                  onChange={ (event) => setUserZip(event.target.value) }
-                  value={userZip}
-                />
-              </Group>
+              <TextInput
+                label="zipCode"
+                placeholder='5 digit zip code'
+                onChange={ (event) => setUserZip(event.target.value) }
+                value={userZip}
+              />
+            </Group>
+          }
+
             <Group>
               <Button variant='gradient' size='md' onClick={() => {
                 getCoordinates({zipCode: userZip, city: userCity, state: userState})

@@ -3,6 +3,7 @@ import { openWeather_units } from '../../@types'  // enum
 import getWeather3HourSteps from '../../calls/weather3HourSteps'
 import TheTime from './TheTime'
 import { toTitleCase } from '../../utility/functions'
+import styles from '../../CSS/myWeather.module.css'
 
 interface props {
   searchParams: {
@@ -32,9 +33,7 @@ function getAverageHumidity(data: Array<weatherVariables> =[]) {
 }
 
 const MyWeather = async ({searchParams}: props) => {
-  console.log('GOT HERE')
   const {lat, lon} = searchParams
-  // console.log('lat and lon:: ', lat , ' ', lon)
   // guard
   if (!(lat && lon)) {
     return (
@@ -52,24 +51,19 @@ const MyWeather = async ({searchParams}: props) => {
   const [min, max, average] = getMaxAndMinAndAvg(threeHourWeather)
   const humidity = getAverageHumidity(threeHourWeather)
   const weather = currentWeather?.weather?.[0]
-  // const { main } = currentWeather
-  const now = new Date()
-  console.log('NOW::', now)
 
   return (
-    <div className='weather-today-container'>
-      {/* <p>{weather?.main}</p> */}
-      {/* <p> {lat} {lon}</p> */}
-      <div className='weather-today-header'>
+    <div className={ styles.weather_today_container }>
+      <div className={ styles.weather_today_header }>
         <div>
           <h3>TODAY IN</h3>
-          <h3>{currentWeather?.name?.toUpperCase()}</h3>
+          <h3>{currentWeather?.name?.toUpperCase() || 'null'}</h3>
         </div>
         <TheTime />
       </div>
-      <div className='weather-today-grid'>
-        <div className='weather-today-grid-child '>
-          <div className='weather-today_p'>
+      <div className={ styles.weather_today_grid }>
+        <div className={ styles.weather_today_grid_child }>
+          <div className={styles.weather_today_p}>
             <p className='FSml'>{weather?.description && toTitleCase(weather.description)}</p>
             <p className='FSmd'>Expect to See</p>
           </div>
@@ -77,8 +71,8 @@ const MyWeather = async ({searchParams}: props) => {
             <i className='icon wi wi-cloud'/>
           </div>
         </div>
-        <div className='weather-today-grid-child '>
-          <div className='weather-today_p'>
+        <div className={ styles.weather_today_grid_child}>
+          <div className={ styles.weather_today_p }>
             <p className='FSlg'>{average + degC}</p>
             <p className='FSmd'>Today{"'"}s Average</p>
           </div>
@@ -86,8 +80,8 @@ const MyWeather = async ({searchParams}: props) => {
             <i className='icon wi wi-sunset'></i>
           </div>
         </div>
-        <div className='weather-today-grid-child '>
-          <div className='weather-today_p'>
+        <div className={ styles.weather_today_grid_child }>
+          <div className={ styles.weather_today_p }>
             <p className='FSlg'>{max + degC}</p>
             <p className='FSmd'>Today{"'"}s High</p>
           </div>
@@ -95,8 +89,8 @@ const MyWeather = async ({searchParams}: props) => {
           <i className='icon wi wi-thermometer'/>
         </div>
         </div>
-        <div className='weather-today-grid-child '>
-          <div className='weather-today_p'>
+        <div className={ styles.weather_today_grid_child }>
+          <div className={ styles.weather_today_p }>
             <p className='FSlg'>{min + degC}</p>
             <p className='FSmd'>Today{"'"}s Low</p>
           </div>
@@ -104,8 +98,8 @@ const MyWeather = async ({searchParams}: props) => {
             <i className='icon wi wi-thermometer-exterior'/>
           </div>
         </div>
-        <div className='weather-today-grid-child '>
-          <div className='weather-today_p'>
+        <div className={ styles.weather_today_grid_child }>
+          <div className={ styles.weather_today_p }>
             <p className='FSlg'>{humidity === -1 ? 'Could not obtain humidity' : humidity + '%'}</p>
             <p className='FSmd'>Average Humidity</p>
           </div>
