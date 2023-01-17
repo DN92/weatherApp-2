@@ -1,18 +1,20 @@
-import Image from 'next/image'
-import loadingSun from '../images/loadingSun.gif'
+import Image from 'next/image';
+import loadingSun from '../images/loadingSun.gif';
 
-function generateImageSizes () {
-  const args = Array.from(arguments)
-  if (args.length === 0) return ''
-  const result = []
+type GenerateImageSizesInputArg = [string, number, number];
 
+
+// input: scaler, pixels, viewUnits
+function generateImageSizes(...args : Array<GenerateImageSizesInputArg>) {
+  if (args.length === 0) return '';
+  const result: Array<string> = [];
+  return result;
 }
 
-export default function LoadingSun () {
-
+export default function LoadingSun() {
   return (
     <div
-    className='IMAGE_HERE'
+      className="IMAGE_HERE"
       style={{
         minHeight: '100%',
         minWidth: 'auto',
@@ -25,11 +27,11 @@ export default function LoadingSun () {
       <Image
         src={loadingSun}
         alt="loading sun gif"
-        sizes='(max-width: 768px) 100vw,
+        sizes="(max-width: 768px) 100vw,
           ()
-        '
+        "
         fill
       />
     </div>
-  )
+  );
 }

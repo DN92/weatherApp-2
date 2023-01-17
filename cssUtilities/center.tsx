@@ -4,6 +4,6 @@ const center: React.CSSProperties = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
 
-}
+};
 
-export default center
+export default center;

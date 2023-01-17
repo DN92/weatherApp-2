@@ -10,9 +10,9 @@ const theme: MantineThemeOverride = {
     sm: 30,
     md: 50,
     lg: 70,
-    xl: 90
-  }
-}
+    xl: 90,
+  },
+};
 
 export default function RootStyleRegistry({ children }: { children: React.ReactNode }) {
   const cache = useEmotionCache();

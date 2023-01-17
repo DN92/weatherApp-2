@@ -1,9 +1,9 @@
-import '../CSS/index.css'
+import '../CSS/index.css';
 
-export default function AppLayout({children}: children) {
+export default function AppLayout({ children }: ReactChildren) {
   return (
     <div className="app-wrapper">
       {children}
     </div>
-  )
+  );
 }

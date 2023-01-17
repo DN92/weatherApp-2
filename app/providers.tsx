@@ -1,16 +1,15 @@
-'use client'
+'use client';
 
-import { ColorScheme, ColorSchemeProvider, Paper } from "@mantine/core";
-import { useHotkeys, useLocalStorage } from "@mantine/hooks";
+import { ColorScheme, ColorSchemeProvider, Paper } from '@mantine/core';
+import { useHotkeys, useLocalStorage } from '@mantine/hooks';
 
-const Providers = ({children}: children) => {
+function Providers({ children }: ReactChildren) {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
     key: 'mantine-color-scheme',
     defaultValue: 'light',
   });
 
-  const toggleColorScheme = (value?: ColorScheme) =>
-  setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
+  const toggleColorScheme = (value?: ColorScheme) => setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
 
   useHotkeys([['mod+J', () => toggleColorScheme()]]);
 
@@ -20,7 +19,7 @@ const Providers = ({children}: children) => {
         {children}
       </ColorSchemeProvider>
     </div>
-  )
+  );
 }
 
-export default Providers
+export default Providers;

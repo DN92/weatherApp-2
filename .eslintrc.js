@@ -14,14 +14,14 @@ module.exports = {
     'airbnb',
     'airbnb-typescript',
     'airbnb/hooks',
-    "next/core-web-vitals",
+    'next/core-web-vitals',
   ],
   overrides: [
   ],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
-    project: './tsconfig.json'
+    project: './tsconfig.json',
   },
   plugins: [
     'react',
@@ -38,6 +38,7 @@ module.exports = {
     semi: 1,
     'react/no-array-index-key': 0,
     'no-unused-vars': 0,
+    '@typescript-eslint/no-unused-vars': 1,
     'react/prop-types': 0,
     'object-curly-newline': 0,
     'no-console': ['error', { allow: ['log', 'warn', 'error'] }],

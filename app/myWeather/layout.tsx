@@ -1,10 +1,10 @@
 
-const Layout = ({children}: children) => {
+function Layout({ children }: ReactChildren) {
   return (
-    <main className="myWeather-layout center" >
-        {children}
+    <main className="myWeather-layout center">
+      {children}
     </main>
-  )
+  );
 }
 
-export default Layout
+export default Layout;

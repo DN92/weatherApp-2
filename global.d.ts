@@ -1,7 +1,7 @@
 export {};
 
 declare global {
-  interface openWeatherApiByCity {
+  interface OpenWeatherApiByCity {
     name: string,
     local_names?: string
     lat: string,
@@ -10,7 +10,7 @@ declare global {
     state?: string,
   }
 
-  interface openWeatherApiByZip {
+  interface OpenWeatherApiByZip {
     zip: string,
     name: string,
     lat: string,
@@ -18,40 +18,40 @@ declare global {
     country: string
   }
 
-  type openWeatherApiLocation = openWeatherApiByCity | openWeatherApiByZip
+  type OpenWeatherApiLocation = OpenWeatherApiByCity | OpenWeatherApiByZip;
 
-  interface geoCodeOptions {
+  interface GeoCodeOptions {
     key?: string | undefined,
     version?: string,
     limit?: string,
   }
 
-  type children = {children: React.ReactNode}
+  type ReactChildren = { children: React.ReactNode };
 
-  interface weatherData {
-    coord?: {lon: number, lat: number},
-    weather?: Array<weatherSummary>,
+  interface WeatherData {
+    coord?: { lon: number, lat: number },
+    weather?: Array<WeatherSummary>,
     base?: string,
-    main?: weatherVariables,
+    main?: WeatherVariables,
     visibility?: number,
-    wind?: weatherWind,
-    clouds?: weatherClouds,
+    wind?: WeatherWind,
+    clouds?: WeatherClouds,
     dt?: number,
-    sys?: weatherSYS,
+    sys?: WeatherSYS,
     timezone?: number,
     id?: number,
     name?: string,
     cod?: number,
   }
 
-  interface weatherSummary {
+  interface WeatherSummary {
     id?: number,
     main?: string,
     description?: string,
     icon?: string
   }
 
-  interface weatherVariables {
+  interface WeatherVariables {
     temp?: number,
     feels_like?: number,
     temp_min?: number,
@@ -67,17 +67,17 @@ declare global {
 
 // end global declaration
 
-interface weatherSYS {
+interface WeatherSYS {
   country?: string,
   sunrise?: number,
   sunset?: number,
 }
 
-interface weatherClouds {
+interface WeatherClouds {
   all?: number,
 }
 
-interface weatherWind {
+interface WeatherWind {
   speed?: number,
   deg?: number,
   gust?: number,

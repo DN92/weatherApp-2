@@ -1,59 +1,65 @@
-import getWeatherNow from '../../calls/weatherNow'
-import { openWeather_units } from '../../@types'  // enum
-import getWeather3HourSteps from '../../calls/weather3HourSteps'
-import TheTime from './TheTime'
-import Fallback from './Fallback'
-import { toTitleCase } from '../../utility/functions'
-import styles from '../../CSS/myWeather.module.css'
+import getWeatherNow from '../../calls/weatherNow';
+import { OpenWeatherUnits } from '../../@types'; // enum
+import getWeather3HourSteps from '../../calls/weather3HourSteps';
+import TheTime from './TheTime';
+import Fallback from './Fallback';
+import { toTitleCase } from '../../utility/functions';
+import styles from '../../CSS/myWeather.module.css';
 
 interface props {
   searchParams: {
     lat: string,
     lon: string,
- }
-}
-
-const degC ='\u00b0' + 'C'
-
-function getMaxAndMinAndAvg(data: Array<weatherVariables> = []) {
-  if(!(data.length > 0 && data[0].temp_min && data[0].temp_max)) {
-    return [null, null, null]
   }
-  const max = Math.max(...data.map(ele => ele.temp as number))
-  const min = Math.min(...data.map(ele => ele.temp as number))
-  const average = data.reduce((acc, curr) => acc+(curr.temp as number), 0) / data.length
-  return [Math.floor(min), Math.ceil(max), Math.floor(average)]
 }
 
-function getAverageHumidity(data: Array<weatherVariables> =[]) {
-  if(!(data.length > 0 && data[0].humidity)) {
-    return -1
+const degC = '\u00b0' + 'C';
+
+function getMaxAndMinAndAvg(data: Array<WeatherVariables> = []) {
+  if (!(data.length > 0 && data[0].temp_min && data[0].temp_max)) {
+    return [null, null, null];
   }
-  const humidities = data.map(ele => ele.humidity as number)
-  return Math.floor(humidities.reduce((a, b) => a + b) / humidities.length)
+  const max = Math.max(...data.map((ele) => ele.temp as number));
+  const min = Math.min(...data.map((ele) => ele.temp as number));
+  const average = data.reduce((acc, curr) => acc + (curr.temp as number), 0) / data.length;
+  return [Math.floor(min), Math.ceil(max), Math.floor(average)];
 }
 
-const MyWeather = async ({searchParams}: props) => {
-  const {lat, lon} = searchParams
+function getAverageHumidity(data: Array<WeatherVariables> = []) {
+  if (!(data.length > 0 && data[0].humidity)) {
+    return -1;
+  }
+  const humidities = data.map((ele) => ele.humidity as number);
+  return Math.floor(humidities.reduce((a, b) => a + b) / humidities.length);
+}
+
+const MyWeather = async ({ searchParams }: props) => {
+  const { lat, lon } = searchParams;
   // guard
   if (!(lat && lon)) {
     return (
       <div>
         Did Not Receive Longitude and/or Latitude
-        <p>lat: {lat}</p>
-        <p>lon: {lon}</p>
+        <p>
+          lat:
+          {lat}
+        </p>
+        <p>
+          lon:
+          {lon}
+        </p>
       </div>
-    )
+    );
   }
   // end guard
 
-  const currentWeather: weatherData = await getWeatherNow(lat, lon, openWeather_units.metric)
-  const threeHourWeather: Array<weatherVariables> | undefined = await getWeather3HourSteps(lat, lon, openWeather_units.metric)
-  const [min, max, average] = getMaxAndMinAndAvg(threeHourWeather)
-  const humidity = getAverageHumidity(threeHourWeather)
-  const weather = currentWeather?.weather?.[0]
+  const currentWeather: WeatherData = await getWeatherNow(lat, lon, OpenWeatherUnits.metric);
+  const threeHourWeather: Array<WeatherVariables> | undefined = await getWeather3HourSteps(lat, lon, OpenWeatherUnits.metric);
+  const [min, max, average] = getMaxAndMinAndAvg(threeHourWeather);
+  const humidity = getAverageHumidity(threeHourWeather);
+  const weather = currentWeather?.weather?.[0];
 
-  return <Fallback/>
+  return <Fallback />;
 
 //   return (
 //     <div className={ styles.weather_today_container }>
@@ -113,6 +119,6 @@ const MyWeather = async ({searchParams}: props) => {
 //       </div>
 //     </div>
 //   )
-}
+};
 
-export default MyWeather
+export default MyWeather;

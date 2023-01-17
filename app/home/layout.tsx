@@ -1,20 +1,20 @@
-const Layout = ({children}: children) => {
-
+function Layout({ children }: ReactChildren) {
   const paperWrapperStyles: React.CSSProperties = {
     position: 'absolute',
     left: '50%',
     top: '50%',
     transform: 'translate(-50%, -50%)',
     maxWidth: '500px',
-  }
+  };
 
   return (
-    <main className="paper-wrapper"
+    <main
+      className="paper-wrapper"
       style={paperWrapperStyles}
     >
       {children}
     </main>
-  )
+  );
 }
 
-export default Layout
+export default Layout;
