@@ -1,6 +1,13 @@
 import Image from 'next/image'
 import loadingSun from '../images/loadingSun.gif'
 
+function generateImageSizes () {
+  const args = Array.from(arguments)
+  if (args.length === 0) return ''
+  const result = []
+
+}
+
 export default function LoadingSun () {
 
   return (
@@ -18,8 +25,10 @@ export default function LoadingSun () {
       <Image
         src={loadingSun}
         alt="loading sun gif"
-        // fill
-        layout='fill'
+        sizes='(max-width: 768px) 100vw,
+          ()
+        '
+        fill
       />
     </div>
   )
