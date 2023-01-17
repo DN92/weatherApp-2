@@ -22,7 +22,7 @@ const AppHome = () => {
     setTimeout(() => {
       clearInterval(interval)
       router.push('/home')
-    }, 126000)
+    }, 100)
     return () => {
       clearInterval(interval)
     }

@@ -40,7 +40,7 @@
   color: rgb(96, 2, 96);
   font-weight: bold;
   text-align: center;
-  font-size: var(--FSmd)
+  font-size: var(--FSmd);
 }
 
 .weather_today_grid_child {
@@ -61,9 +61,13 @@
   align-items: center;
 }
 
-.weather-today-grid > * {
+.weather_today_grid > * {
   margin: 0;
   padding: 0;
+}
+
+.weather_today_p {
+  position: relative;
 }
 
 .weather_today_p > p {

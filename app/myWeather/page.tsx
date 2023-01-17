@@ -2,6 +2,7 @@ import getWeatherNow from '../../calls/weatherNow'
 import { openWeather_units } from '../../@types'  // enum
 import getWeather3HourSteps from '../../calls/weather3HourSteps'
 import TheTime from './TheTime'
+import Fallback from './Fallback'
 import { toTitleCase } from '../../utility/functions'
 import styles from '../../CSS/myWeather.module.css'
 
@@ -52,64 +53,66 @@ const MyWeather = async ({searchParams}: props) => {
   const humidity = getAverageHumidity(threeHourWeather)
   const weather = currentWeather?.weather?.[0]
 
-  return (
-    <div className={ styles.weather_today_container }>
-      <div className={ styles.weather_today_header }>
-        <div>
-          <h3>TODAY IN</h3>
-          <h3>{currentWeather?.name?.toUpperCase() || 'null'}</h3>
-        </div>
-        <TheTime />
-      </div>
-      <div className={ styles.weather_today_grid }>
-        <div className={ styles.weather_today_grid_child }>
-          <div className={styles.weather_today_p}>
-            <p className='FSml'>{weather?.description && toTitleCase(weather.description)}</p>
-            <p className='FSmd'>Expect to See</p>
-          </div>
-          <div className='icon-wrapper'>
-            <i className='icon wi wi-cloud'/>
-          </div>
-        </div>
-        <div className={ styles.weather_today_grid_child}>
-          <div className={ styles.weather_today_p }>
-            <p className='FSlg'>{average + degC}</p>
-            <p className='FSmd'>Today{"'"}s Average</p>
-          </div>
-          <div className='icon-wrapper'>
-            <i className='icon wi wi-sunset'></i>
-          </div>
-        </div>
-        <div className={ styles.weather_today_grid_child }>
-          <div className={ styles.weather_today_p }>
-            <p className='FSlg'>{max + degC}</p>
-            <p className='FSmd'>Today{"'"}s High</p>
-          </div>
-        <div className='icon-wrapper'>
-          <i className='icon wi wi-thermometer'/>
-        </div>
-        </div>
-        <div className={ styles.weather_today_grid_child }>
-          <div className={ styles.weather_today_p }>
-            <p className='FSlg'>{min + degC}</p>
-            <p className='FSmd'>Today{"'"}s Low</p>
-          </div>
-          <div className='icon-wrapper'>
-            <i className='icon wi wi-thermometer-exterior'/>
-          </div>
-        </div>
-        <div className={ styles.weather_today_grid_child }>
-          <div className={ styles.weather_today_p }>
-            <p className='FSlg'>{humidity === -1 ? 'Could not obtain humidity' : humidity + '%'}</p>
-            <p className='FSmd'>Average Humidity</p>
-          </div>
-          <div className='icon-wrapper'>
-            <i className='icon wi wi-humidity'/>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
+  return <Fallback/>
+
+//   return (
+//     <div className={ styles.weather_today_container }>
+//       <div className={ styles.weather_today_header }>
+//         <div>
+//           <h3>TODAY IN</h3>
+//           <h3>{currentWeather?.name?.toUpperCase() || 'null'}</h3>
+//         </div>
+//         <TheTime />
+//       </div>
+//       <div className={ styles.weather_today_grid }>
+//         <div className={ styles.weather_today_grid_child }>
+//           <div className={styles.weather_today_p}>
+//             <p className='FSml'>{weather?.description && toTitleCase(weather.description)}</p>
+//             <p className='FSmd'>Expect to See</p>
+//           </div>
+//           <div className='icon-wrapper'>
+//             <i className='icon wi wi-cloud'/>
+//           </div>
+//         </div>
+//         <div className={ styles.weather_today_grid_child}>
+//           <div className={ styles.weather_today_p }>
+//             <p className='FSlg'>{average + degC}</p>
+//             <p className='FSmd'>Today{"'"}s Average</p>
+//           </div>
+//           <div className='icon-wrapper'>
+//             <i className='icon wi wi-sunset'></i>
+//           </div>
+//         </div>
+//         <div className={ styles.weather_today_grid_child }>
+//           <div className={ styles.weather_today_p }>
+//             <p className='FSlg'>{max + degC}</p>
+//             <p className='FSmd'>Today{"'"}s High</p>
+//           </div>
+//         <div className='icon-wrapper'>
+//           <i className='icon wi wi-thermometer'/>
+//         </div>
+//         </div>
+//         <div className={ styles.weather_today_grid_child }>
+//           <div className={ styles.weather_today_p }>
+//             <p className='FSlg'>{min + degC}</p>
+//             <p className='FSmd'>Today{"'"}s Low</p>
+//           </div>
+//           <div className='icon-wrapper'>
+//             <i className='icon wi wi-thermometer-exterior'/>
+//           </div>
+//         </div>
+//         <div className={ styles.weather_today_grid_child }>
+//           <div className={ styles.weather_today_p }>
+//             <p className='FSlg'>{humidity === -1 ? 'Could not obtain humidity' : humidity + '%'}</p>
+//             <p className='FSmd'>Average Humidity</p>
+//           </div>
+//           <div className='icon-wrapper'>
+//             <i className='icon wi wi-humidity'/>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   )
 }
 
 export default MyWeather
