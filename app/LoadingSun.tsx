@@ -1,17 +1,30 @@
 import Image from 'next/image';
 import loadingSun from '../images/loadingSun.gif';
 
-type GenerateImageSizesInputArg = [string, number, number];
 
+type BreakPoints = number
+type ViewWidths = number
+type DefaultSize = number
+type Breaker = 'max-width' | 'min-width' | 'min-height' | 'max-height'
+type GenerateImageSizesInputRest = [BreakPoints, ViewWidths]
 
-// input: scaler, pixels, viewUnits
-function generateImageSizes(...args : Array<GenerateImageSizesInputArg>) {
-  if (args.length === 0) return '';
-  const result: Array<string> = [];
-  return result;
+interface ComponentInputProps {
+  defaultSize: DefaultSize,
+  breaker: Breaker,
+  rest: Array<GenerateImageSizesInputRest>
 }
 
-export default function LoadingSun() {
+function generateImageSizes(defaultSize: DefaultSize, breaker: Breaker, ...args : Array<GenerateImageSizesInputRest>): string {
+  if (args.length === 0) return '';
+  const result: Array<string> = [];
+  args.forEach((arg) => {
+    result.push(`(${breaker}: ${arg[0]}) ${arg[1]}vw`)
+  })
+  result.push(`${defaultSize}vw`)
+  return result.join(', ');
+}
+
+export default function LoadingSun({defaultSize, breaker, rest} : ComponentInputProps) {
   return (
     <div
       className="IMAGE_HERE"
@@ -27,9 +40,7 @@ export default function LoadingSun() {
       <Image
         src={loadingSun}
         alt="loading sun gif"
-        sizes="(max-width: 768px) 100vw,
-          ()
-        "
+        sizes={generateImageSizes(defaultSize, breaker, rest)}
         fill
       />
     </div>
