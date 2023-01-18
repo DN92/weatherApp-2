@@ -6,7 +6,7 @@ import Fallback from './Fallback';
 import { toTitleCase } from '../../utility/functions';
 import styles from '../../CSS/myWeather.module.css';
 
-interface props {
+interface Props {
   searchParams: {
     lat: string,
     lon: string,
@@ -33,7 +33,7 @@ function getAverageHumidity(data: Array<WeatherVariables> = []) {
   return Math.floor(humidities.reduce((a, b) => a + b) / humidities.length);
 }
 
-const MyWeather = async ({ searchParams }: props) => {
+const MyWeather = async ({ searchParams }: Props) => {
   const { lat, lon } = searchParams;
   // guard
   if (!(lat && lon)) {

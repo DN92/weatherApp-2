@@ -1,4 +1,4 @@
-const states = {
+const states: Record<string, string > = {
   AK: 'Alaska',
   AL: 'Alabama',
   AR: 'Arkansas',
@@ -56,4 +56,4 @@ Object.keys(states).forEach((key) => {
   states[key] = states[key].toLowerCase();
 });
 
-export default states;
+export default states as Record<string, string>;

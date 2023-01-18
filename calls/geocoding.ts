@@ -25,7 +25,7 @@ export async function getGeoCodeByCity(
   const version = options?.version || DF.version;
   const limit = options?.limit || DF.limit;
   const city = cityName.replaceAll(' ', '_');
-  const state = statesDictionary[stateAbbr as keyof {}];
+  const state = statesDictionary[stateAbbr];
 
   if (!key) {
     throw Error('no api key');

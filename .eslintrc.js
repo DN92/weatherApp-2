@@ -52,10 +52,12 @@ module.exports = {
     'no-trailing-spaces': 1,
     'no-shadow': 0,
     'no-multiple-empty-lines': ['error', { max: 2 }],
+    'no-useless-concat': 0,
     'arrow-parens': 1,
     'react-hooks/exhaustive-deps': 1,
     'no-useless-return': 1,
     'no-underscore-dangle': 0,
+    'max-len': 0,
     'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.ts', '.tsx', 'css', 'json'] }],
     'import/extensions': [
       'error',
