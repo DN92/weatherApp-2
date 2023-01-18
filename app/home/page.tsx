@@ -14,13 +14,39 @@ const stateSelectorData = Object.keys(states)
 
 function Home() {
   const history = useRouter();
-  const [userZip, setUserZip] = useState('');
+  const [userZip, setUserZip] = useState<string>('');
   const [userCity, setUserCity] = useState('');
   const [userState, setUserState] = useState('');
-  const [enableZip, setEnableZip] = useState(false);
+  const [enableZip, setEnableZip] = useState(true);
+  const [validZip, setValidZip] = useState<boolean>(false);
   const [fetchError, setFetchError] = useState('');
   const [formError, setFormError] = useState('');
   const [lon, lat, getCoordinates] = useLocationFromGeoApi(setFetchError, setFormError);
+  userZip
+
+  function validateZipCode () {
+    return (userZip.length === 5 && /^(\d+,)*(\d+)$/.test(userZip) && !userZip.includes(" "))
+  }
+
+  function handleSubmitWithZip (): void {
+    if (!validateZipCode()) {
+      setFormError('Invalid ZipCode')
+    } else {
+      getCoordinates({ zipCode: userZip, city: userCity, state: userState })
+    }
+  }
+
+  function handleSubmitWithCity () {
+
+  }
+
+  function handleSubmit () {
+    if (enableZip) {
+      handleSubmitWithZip
+    } else {
+      handleSubmitWithCity
+    }
+  }
 
   useEffect(() => {
     if (!!lon && !!lat) {
@@ -39,23 +65,40 @@ function Home() {
           <Text size="xl" weight={500}>
             Get the Weather!
           </Text>
-        </Group>
         <Group position="apart" mb="xs">
+        </Group>
           <Text size="lg">
             Select Desired Location
           </Text>
         </Group>
 
-        <Button
-          variant="gradient"
-          size="md"
-          onClick={() => {
-            setEnableZip((prev) => !prev);
-          }}
-        >
-          {enableZip ? 'Use City and State' : 'Use Zip Code'}
-        </Button>
 
+        {
+          enableZip && (
+            <Group position="apart">
+              <TextInput
+                label="Enter a 5 digit zip code"
+                placeholder="Zip code"
+                onChange={(event) => setUserZip(event.target.value)}
+                value={userZip}
+              />
+            </Group>
+          )
+        }
+        <div style={{
+          minHeight: '1rem'
+        }}></div>
+        <Group>
+          <Button
+            variant="gradient"
+            size="md"
+            onClick={() => {
+              handleSubmit();
+            }}
+          >
+            Get My Weather
+          </Button>
+        </Group>
         {
           !enableZip && (
             <Group>
@@ -82,31 +125,21 @@ function Home() {
             </Group>
           )
         }
+        <div style={{
+          minHeight: '1.25rem'
+        }}>
 
-        {
-          enableZip && (
-            <Group position="apart">
-              <TextInput
-                label="zipCode"
-                placeholder="5 digit zip code"
-                onChange={(event) => setUserZip(event.target.value)}
-                value={userZip}
-              />
-            </Group>
-          )
-        }
+        </div>
+        <Button
+          variant="gradient"
+          size="md"
+          onClick={() => {
+            setEnableZip((prev) => !prev);
+          }}
+        >
+          {enableZip ? 'Use City and State' : 'Use Zip Code'}
+        </Button>
 
-        <Group>
-          <Button
-            variant="gradient"
-            size="md"
-            onClick={() => {
-              getCoordinates({ zipCode: userZip, city: userCity, state: userState });
-            }}
-          >
-            Get lon lat
-          </Button>
-        </Group>
       </Paper>
     </main>
   );
