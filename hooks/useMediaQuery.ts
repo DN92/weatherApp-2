@@ -1,20 +1,20 @@
 import { useMemo } from 'react';
 import useWindowSize from './useWindowSize';
 
-interface sizer {
+interface Sizer {
   maxSize: number,
   name: string,
 }
 
-interface breakPoints {
-  xs: sizer,
-  sm: sizer,
-  md: sizer,
-  lg: sizer,
-  xl: sizer,
+interface BreakPoints {
+  xs: Sizer,
+  sm: Sizer,
+  md: Sizer,
+  lg: Sizer,
+  xl: Sizer,
 }
 
-const defaultBreakPoints: breakPoints = {
+const defaultBreakPoints: BreakPoints = {
   xs: { maxSize: 480, name: 'xs' },
   sm: { maxSize: 768, name: 'sm' },
   md: { maxSize: 1024, name: 'md' },
@@ -22,7 +22,7 @@ const defaultBreakPoints: breakPoints = {
   xl: { maxSize: Infinity, name: 'xl' },
 };
 
-const useMediaQuery = ({ xs, sm, md, lg, xl }: breakPoints = defaultBreakPoints): sizer => {
+const useMediaQuery = ({ xs, sm, md, lg, xl }: BreakPoints = defaultBreakPoints): Sizer => {
   const { width } = useWindowSize();
   const screenSizer = useMemo(() => {
     if (!width && width !== 0) return md.name;
@@ -31,8 +31,10 @@ const useMediaQuery = ({ xs, sm, md, lg, xl }: breakPoints = defaultBreakPoints)
     if (width < md.maxSize) return md;
     if (width < lg.maxSize) return lg;
     if (width < xl.maxSize) return xl;
+    // default
+    return md;
   }, [width, xs, sm, md, lg, xl]);
-  return screenSizer as sizer;
+  return screenSizer as Sizer;
 };
 
 export default useMediaQuery;
