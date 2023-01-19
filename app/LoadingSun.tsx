@@ -1,16 +1,21 @@
 import Image from 'next/image';
 import loadingSun from '../images/loadingSun.gif';
-import mainConfig from './myConfig/mainConfig.js';
+// import mainConfig from './(myConfig)/mainConfig.js';
+import { loadingSunDefaults } from './(myConfig)/mainConfig';
 
-const { loadingSunDefaults } = mainConfig;
+// const { loadingSunDefaults } = mainConfig;
 
 interface ComponentInputProps {
-  defaultSize: DefaultSize,
-  breaker: CssBreakPointMeasure,
-  rest: Array<GenerateImageSizesInputRest>
+  defaultSize?: DefaultSize,
+  breaker?: CssBreakPointMeasure,
+  rest?: Array<GenerateImageSizesInputRest>
 }
 
-function generateImageSizes(defaultSize: DefaultSize, breaker: CssBreakPointMeasure, ...args : Array<GenerateImageSizesInputRest>): string {
+function generateImageSizes(
+  defaultSize: DefaultSize,
+  breaker: CssBreakPointMeasure,
+  ...args : Array<GenerateImageSizesInputRest>
+): string {
   if (args.length === 0) return '';
   const result: Array<string> = [];
   args.forEach((arg) => {
