@@ -1,6 +1,11 @@
 export {};
 
 declare global {
+
+  type CssBreakPointMeasure = 'max-width' | 'min-width' | 'min-height' | 'max-height';
+
+  type GenerateImageSizesInputRest = [BreakPoints, ViewWidths]; // [number, number] tuple
+
   interface OpenWeatherApiByCity {
     name: string,
     local_names?: string
@@ -67,14 +72,17 @@ declare global {
 
 // end global declaration
 
+type BreakPoints = number;
+type ViewWidths = number;
+
+interface WeatherClouds {
+  all?: number,
+}
+
 interface WeatherSYS {
   country?: string,
   sunrise?: number,
   sunset?: number,
-}
-
-interface WeatherClouds {
-  all?: number,
 }
 
 interface WeatherWind {
