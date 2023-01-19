@@ -1,5 +1,4 @@
 import getWeatherNow from '../../calls/weatherNow';
-import { OpenWeatherUnits } from '../../@types'; // enum
 import getWeather3HourSteps from '../../calls/weather3HourSteps';
 import TheTime from './TheTime';
 import Fallback from './Fallback';
@@ -33,6 +32,7 @@ function getAverageHumidity(data: Array<WeatherVariables> = []) {
   return Math.floor(humidities.reduce((a, b) => a + b) / humidities.length);
 }
 
+// component starts here
 const MyWeather = async ({ searchParams }: Props) => {
   const { lat, lon } = searchParams;
   // guard
@@ -53,8 +53,8 @@ const MyWeather = async ({ searchParams }: Props) => {
   }
   // end guard
 
-  const currentWeather: WeatherData = await getWeatherNow(lat, lon, OpenWeatherUnits.metric);
-  const threeHourWeather: Array<WeatherVariables> | undefined = await getWeather3HourSteps(lat, lon, OpenWeatherUnits.metric);
+  const currentWeather = await getWeatherNow(lat, lon, 'metric') as WeatherData;
+  const threeHourWeather: Array<WeatherVariables> | undefined = await getWeather3HourSteps(lat, lon, 'metric');
   const [min, max, average] = getMaxAndMinAndAvg(threeHourWeather);
   const humidity = getAverageHumidity(threeHourWeather);
   const weather = currentWeather?.weather?.[0];

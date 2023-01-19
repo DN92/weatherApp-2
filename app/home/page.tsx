@@ -22,29 +22,28 @@ function Home() {
   const [fetchError, setFetchError] = useState('');
   const [formError, setFormError] = useState('');
   const [lon, lat, getCoordinates] = useLocationFromGeoApi(setFetchError, setFormError);
-  userZip
 
-  function validateZipCode () {
-    return (userZip.length === 5 && /^(\d+,)*(\d+)$/.test(userZip) && !userZip.includes(" "))
+  function validateZipCode() {
+    return (userZip.length === 5 && /^(\d+,)*(\d+)$/.test(userZip) && !userZip.includes(' '));
   }
 
-  function handleSubmitWithZip (): void {
+  function handleSubmitWithZip(): void {
     if (!validateZipCode()) {
-      setFormError('Invalid ZipCode')
+      setFormError('Invalid ZipCode');
     } else {
-      getCoordinates({ zipCode: userZip, city: userCity, state: userState })
+      getCoordinates({ zipCode: userZip, city: userCity, state: userState });
     }
   }
 
-  function handleSubmitWithCity () {
+  function handleSubmitWithCity() {
 
   }
 
-  function handleSubmit () {
+  function handleSubmit() {
     if (enableZip) {
-      handleSubmitWithZip
+      handleSubmitWithZip();
     } else {
-      handleSubmitWithCity
+      handleSubmitWithCity();
     }
   }
 
@@ -65,8 +64,7 @@ function Home() {
           <Text size="xl" weight={500}>
             Get the Weather!
           </Text>
-        <Group position="apart" mb="xs">
-        </Group>
+          <Group position="apart" mb="xs" />
           <Text size="lg">
             Select Desired Location
           </Text>
@@ -86,8 +84,9 @@ function Home() {
           )
         }
         <div style={{
-          minHeight: '1rem'
-        }}></div>
+          minHeight: '1rem',
+        }}
+        />
         <Group>
           <Button
             variant="gradient"
@@ -126,10 +125,9 @@ function Home() {
           )
         }
         <div style={{
-          minHeight: '1.25rem'
-        }}>
-
-        </div>
+          minHeight: '1.25rem',
+        }}
+        />
         <Button
           variant="gradient"
           size="md"

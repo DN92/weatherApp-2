@@ -1,12 +1,10 @@
 // https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid={API key}
 
-import { OpenWeatherUnits } from '../@types'; // enum
-
 export default async function getWeatherNow(
   lat: string,
   lon: string,
-  units: OpenWeatherUnits = OpenWeatherUnits.metric,
-): Promise< object | undefined > {
+  units: OpenWeatherUnits,
+): Promise< WeatherData | undefined > {
   try {
     const key = process.env.NEXT_PUBLIC_OPENWHETHER_API;
     const domain = 'https://api.openweathermap.org';

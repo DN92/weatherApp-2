@@ -4,7 +4,15 @@ declare global {
 
   type CssBreakPointMeasure = 'max-width' | 'min-width' | 'min-height' | 'max-height';
 
+  type DefaultSize = number;
+
   type GenerateImageSizesInputRest = [BreakPoints, ViewWidths]; // [number, number] tuple
+
+  interface GeoCodeOptions {
+    key?: string | undefined,
+    version?: string,
+    limit?: string,
+  }
 
   interface OpenWeatherApiByCity {
     name: string,
@@ -25,11 +33,7 @@ declare global {
 
   type OpenWeatherApiLocation = OpenWeatherApiByCity | OpenWeatherApiByZip;
 
-  interface GeoCodeOptions {
-    key?: string | undefined,
-    version?: string,
-    limit?: string,
-  }
+  type OpenWeatherUnits = 'standard' | 'metric' | 'imperial';
 
   type ReactChildren = { children: React.ReactNode };
 
@@ -67,7 +71,6 @@ declare global {
     grnd_level?: number,
     temp_kf?: number
   }
-
 }
 
 // end global declaration

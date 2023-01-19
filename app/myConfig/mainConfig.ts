@@ -5,12 +5,12 @@ interface LoadingSunDefaults {
 }
 
 interface MainConfig {
-  loadingSunDefaults: LoadingSunDefaults
+  loadingSunDefaults: LoadingSunDefaults,
 }
 
 const mainConfig: MainConfig = {
   loadingSunDefaults: {
-    defaultSize: 33,
+    defaultSize: 33, // NTS: better name might be fallback
     breaker: 'max-width',
     rest: [
       [786, 100],

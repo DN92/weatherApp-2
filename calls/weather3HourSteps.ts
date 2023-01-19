@@ -1,11 +1,9 @@
 // api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
 
-import { OpenWeatherUnits } from '../@types'; // enum
-
 export default async function getWeather3HourSteps(
   lat: string,
   lon: string,
-  units: OpenWeatherUnits = OpenWeatherUnits.metric,
+  units: OpenWeatherUnits,
   count = 8, // number of list elements returned. 8 should give us 24hours worth
 ): Promise<Array<object> | undefined> {
   try {

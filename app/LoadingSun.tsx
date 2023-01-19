@@ -1,7 +1,8 @@
 import Image from 'next/image';
 import loadingSun from '../images/loadingSun.gif';
+import mainConfig from './myConfig/mainConfig.js';
 
-type DefaultSize = number;
+const { loadingSunDefaults } = mainConfig;
 
 interface ComponentInputProps {
   defaultSize: DefaultSize,
@@ -19,7 +20,11 @@ function generateImageSizes(defaultSize: DefaultSize, breaker: CssBreakPointMeas
   return result.join(', ');
 }
 
-export default function LoadingSun({ defaultSize, breaker, rest } : ComponentInputProps) {
+export default function LoadingSun({
+  defaultSize = loadingSunDefaults.defaultSize,
+  breaker = loadingSunDefaults.breaker,
+  rest = loadingSunDefaults.rest,
+} : ComponentInputProps) {
   return (
     <div
       className="IMAGE_HERE"
