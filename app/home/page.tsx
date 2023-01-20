@@ -18,13 +18,12 @@ const stateSelectorData = statesKeys
 function Home(): React.ReactElement {
   const history = useRouter();
   const [userZip, setUserZip] = useState<string>('');
-  const [userCity, setUserCity] = useState('');
-  const [userState, setUserState] = useState('');
-  const [userStateAbb, setUserStateAbb] = useState('');
-  const [enableZip, setEnableZip] = useState(true);
-  const [validZip, setValidZip] = useState<boolean>(false);
-  const [fetchError, setFetchError] = useState('');
-  const [formError, setFormError] = useState('');
+  const [userCity, setUserCity] = useState<string>('');
+  const [userState, setUserState] = useState<string>('');
+  const [userStateAbb, setUserStateAbb] = useState<string>('');
+  const [enableZip, setEnableZip] = useState<boolean>(true);
+  const [fetchError, setFetchError] = useState<string>('');
+  const [formError, setFormError] = useState<string>('');
   const [lon, lat, getCoordinates] = useLocationFromGeoApi(setFetchError, setFormError);
 
   function validateZipCode(): boolean {
@@ -38,14 +37,12 @@ function Home(): React.ReactElement {
 
   function resetZip(): void {
     setUserZip('');
-    setValidZip(false);
   }
 
   function resetForm(): void {
     setUserZip('');
     setUserCity('');
     setUserState('');
-    setValidZip(false);
     setFormError('');
   }
 
@@ -56,7 +53,6 @@ function Home(): React.ReactElement {
         if ((input >= 65 && input <= 90) || (input >= 97 && input <= 122)) {
           stateFieldBuffer[0] = stateFieldBuffer[1]; // eslint-disable-line
           stateFieldBuffer[1] = event.key;
-          console.log(stateFieldBuffer.join('').toUpperCase());
           const stateToCheck = stateFieldBuffer.join('').toUpperCase();
           if (states[stateToCheck]) {
             setUserStateAbb(stateToCheck);
@@ -69,6 +65,15 @@ function Home(): React.ReactElement {
     [],
   );
 
+  function handleZipCodeInput(event: React.ChangeEvent<HTMLInputElement>): void {
+    const { value } = event.target;
+    console.log(value);
+    if (value.length <= 5 && (/^\d+$/.test(value) || value === '')) {
+      setUserZip(value);
+    } else if (!/^\d+$/.test(userZip)) { //  additional safeguard against non-numeric values entering this field
+      setUserZip('');
+    }
+  }
 
   function handleSubmitWithZip(): void {
     resetCityState();
@@ -100,6 +105,11 @@ function Home(): React.ReactElement {
     }
   }, [lon, lat, history]);
 
+  //  clear form error on form change
+  useEffect(() => {
+    setFormError('');
+  }, [userCity, userState, userZip, enableZip]);
+
 
   return (
 
@@ -117,14 +127,13 @@ function Home(): React.ReactElement {
           </Text>
         </Group>
 
-
         {
           enableZip && (
             <Group position="apart">
               <TextInput
                 label="Enter a 5 digit zip code"
                 placeholder="Zip code"
-                onChange={(event): void => setUserZip(event.target.value)}
+                onChange={(event):void => handleZipCodeInput(event)}
                 value={userZip}
               />
             </Group>

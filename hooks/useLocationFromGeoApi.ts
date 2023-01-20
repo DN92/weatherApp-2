@@ -7,14 +7,14 @@ interface GetCoordinatesArgsObj {
   city?: string,
   state?: string,
 }
-function isValidZipCode(zipCode: string) {
+function isValidZipCode(zipCode: string): boolean {
   const validLength = zipCode.length === 5;
   const validNumeric = isNumeric(zipCode, false);
   return validLength && validNumeric;
 }
 
-function isValidCityState(city: string, state: string) {
-  return (city.length >= 2 && state);
+function isValidCityState(city: string, state: string): boolean {
+  return Boolean(city.length >= 2 && state);
 }
 
 function useLocationFromGeoApi(
