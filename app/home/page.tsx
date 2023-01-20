@@ -116,7 +116,73 @@ function Home(): React.ReactElement {
     <main
       className="TEST"
     >
-      <Paper withBorder p="lg">
+      <div className="paper-lg">
+        <div className="group-apart">
+          <p className="xl 500">Get the Weather</p>
+        </div>
+      </div>
+
+      {enableZip ?
+        (
+          <div className="apart">
+            <label htmlFor="zip-code-text-input">
+              Enter a 5 digit zip code
+              <input
+                id="zip-code-text-input"
+                type="text"
+                placeholder="Zip code"
+                onChange={(event):void => handleZipCodeInput(event)}
+                value={userZip}
+              />
+            </label>
+          </div>
+        )
+        :
+        (
+          <div>
+            <div className="apart">
+              <label htmlFor="city-text-input">
+                Location
+                <input
+                  id="city-text-input"
+                  type="text"
+                  placeholder="city"
+                  onChange={(event): void => setUserCity(event.target.value)}
+                  value={userCity}
+                />
+              </label>
+              <div>
+                <label htmlFor="select-state-input">
+                  <select
+                    id="select-state-input"
+                    aria-labelledby="select-state-input"
+                    placeholder="select state"
+                    data={stateSelectorData}
+                    value={userStateAbb}
+                    onKeyDown={(event): void => {
+                      keyDownBuffer(event)();
+                    }}
+                    onChange={(event): void => {
+                      if (event) {
+                        setUserState(event);
+                      }
+                    }}
+                  />
+
+                </label>
+
+              </div>
+            </div>
+          </div>
+        )}
+
+      <div style={{
+        minHeight: '1rem',
+      }}
+      />
+
+
+      {/* <Paper withBorder p="lg">
         <Group position="apart">
           <Text size="xl" weight={500}>
             Get the Weather!
@@ -125,83 +191,79 @@ function Home(): React.ReactElement {
           <Text size="lg">
             Select Desired Location
           </Text>
-        </Group>
+        </Group> */}
 
-        {
-          enableZip && (
+      {/* {
+        enableZip && (
+          <Group position="apart">
+            <TextInput
+              label="Enter a 5 digit zip code"
+              placeholder="Zip code"
+              onChange={(event):void => handleZipCodeInput(event)}
+              value={userZip}
+            />
+          </Group>
+        )
+      } */}
+
+      {
+        !enableZip && (
+          <Group>
             <Group position="apart">
               <TextInput
-                label="Enter a 5 digit zip code"
-                placeholder="Zip code"
-                onChange={(event):void => handleZipCodeInput(event)}
-                value={userZip}
+                label="Location"
+                placeholder="city"
+                onChange={(event): void => setUserCity(event.target.value)}
+                value={userCity}
               />
             </Group>
-          )
-        }
-        <div style={{
-          minHeight: '1rem',
-        }}
-        />
-
-        {
-          !enableZip && (
-            <Group>
-              <Group position="apart">
-                <TextInput
-                  label="Location"
-                  placeholder="city"
-                  onChange={(event): void => setUserCity(event.target.value)}
-                  value={userCity}
-                />
-              </Group>
-              <Group position="apart">
-                <Select
-                  label="select-state"
-                  placeholder="select state"
-                  data={stateSelectorData}
-                  value={userStateAbb}
-                  onKeyDown={(event): void => {
-                    keyDownBuffer(event)();
-                  }}
-                  onChange={(event): void => {
-                    if (event) {
-                      setUserState(event);
-                    }
-                  }}
-                />
-              </Group>
+            <Group position="apart">
+              <Select
+                label="select-state"
+                placeholder="select state"
+                data={stateSelectorData}
+                value={userStateAbb}
+                onKeyDown={(event): void => {
+                  keyDownBuffer(event)();
+                }}
+                onChange={(event): void => {
+                  if (event) {
+                    setUserState(event);
+                  }
+                }}
+              />
             </Group>
-          )
-        }
+          </Group>
+        )
+      }
 
-        <Group>
-          <Button
-            variant="gradient"
-            size="md"
-            onClick={(): void => {
-              handleSubmit();
-            }}
-          >
-            Get My Weather
-          </Button>
-        </Group>
-
-        <div style={{
-          minHeight: '1.25rem',
-        }}
-        />
+      <Group>
         <Button
           variant="gradient"
           size="md"
           onClick={(): void => {
-            setEnableZip((prev) => !prev);
+            handleSubmit();
           }}
         >
-          {enableZip ? 'Use City and State' : 'Use Zip Code'}
+          Get My Weather
         </Button>
+      </Group>
 
-      </Paper>
+      <div style={{
+        minHeight: '1.25rem',
+      }}
+      />
+      <Button
+        variant="gradient"
+        size="md"
+        onClick={(): void => {
+          setEnableZip((prev) => !prev);
+        }}
+      >
+        {enableZip ? 'Use City and State' : 'Use Zip Code'}
+      </Button>
+
+      {/* </Paper> */}
     </main>
   );
 }
