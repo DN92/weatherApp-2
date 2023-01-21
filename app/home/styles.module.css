@@ -1,0 +1,51 @@
+.component_wrapper {
+  background-color: blue;
+  display: flex;
+  flex-direction: column;
+  /* position: relative; */
+}
+
+.main {
+  background-color: white;
+  width: 80vw;
+  box-sizing: border-box;
+  padding: 10%;
+  border: 1px solid blue;
+  border-radius: 1.5%;
+  margin:auto;
+}
+
+.title {
+  text-align: center;
+  /* background-color: red; */
+  padding: 5%;
+}
+
+.use_city_and_state_button {
+  background-color: red;
+  position: absolute;
+  right: 0;
+  min-height: 2rem;
+  min-width: 9rem;
+  top: -2rem;
+}
+
+.zip_code_text_input_label {
+  text-align: center;
+  display: block;
+}
+
+.zip_code_text_input {
+  margin: 5% auto 5% auto;
+  display: block;
+}
+
+.get_my_weather_button_wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.get_my_weather_button {
+
+}

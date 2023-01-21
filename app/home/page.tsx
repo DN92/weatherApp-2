@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import states from '../../utility/statesDictionary';
 import useLocationFromGeoApi from '../../hooks/useLocationFromGeoApi';
+import styles from './styles.module.css';
 
 const statesKeys = Object.keys(states);
 const stateFieldBuffer: [string, string] = ['', ''];
@@ -105,108 +106,10 @@ function Home(): React.ReactElement {
   }, [userCity, userState, userZip, enableZip]);
 
   return (
-
-    <main
-      className="TEST"
-    >
-      <div className="paper-lg">
-        <div className="group-apart">
-          <p className="xl 500">Get the Weather</p>
-        </div>
-      </div>
-
-      {enableZip ?
-        (
-          <div className="apart">
-            <label htmlFor="zip-code-text-input">
-              Enter a 5 digit zip code
-              <input
-                id="zip-code-text-input"
-                type="text"
-                placeholder="Zip code"
-                onChange={(event):void => handleZipCodeInput(event)}
-                value={userZip}
-              />
-            </label>
-          </div>
-        )
-        :
-        (
-          <div>
-            <div className="apart">
-              <label htmlFor="city-text-input">
-                Location
-                <input
-                  id="city-text-input"
-                  type="text"
-                  placeholder="city"
-                  onChange={(event): void => setUserCity(event.target.value)}
-                  value={userCity}
-                />
-              </label>
-              <div>
-                <label htmlFor="select-state-input">
-                  Select State
-                  {/* attempted to keep select menu open. online search recommended 'multiple' attribute but this forces value prop to be an array. */}
-                  {/* TODO: find a way to control the open/close */}
-                  <select
-                    id="select-state-input"
-                    aria-labelledby="select-state-input"
-                    placeholder="select state"
-                    value={userStateAbb}
-                    onKeyDown={(event): void => {
-                      keyDownBuffer(event)();
-                    }}
-                    onChange={(event): void => {
-                      if (event) {
-                        console.log(event.target.value);
-                        setUserStateAbb(event.target.value);
-                      }
-                    }}
-                  >
-                    <option
-                      value=""
-                      label=""
-                      aria-label="none"
-                    />
-                    {statesKeys.map((state, idx) => (
-                      <option
-                        key={idx.toString() + state}
-                        value={state}
-                      >
-                        {state}
-                      </option>
-                    ))}
-                  </select>
-
-                </label>
-
-              </div>
-            </div>
-          </div>
-        )}
-
-      <div style={{
-        minHeight: '1rem',
-      }}
-      />
+    <div className={styles.component_wrapper}>
 
       <button
-        type="button"
-        aria-label="submit form"
-        onClick={(): void => {
-          handleSubmit();
-        }}
-      >
-        Get My Weather
-      </button>
-
-      <div style={{
-        minHeight: '1.25rem',
-      }}
-      />
-
-      <button
+        className={styles.use_city_and_state_button}
         type="button"
         aria-label={enableZip ? 'switch form to city and state' : 'switch form to use zip code'}
         onClick={(): void => {
@@ -215,7 +118,107 @@ function Home(): React.ReactElement {
       >
         {enableZip ? 'Use City and State' : 'Use Zip Code'}
       </button>
-    </main>
+      <main className={styles.main}>
+        <div className={styles.title}>
+          <h4>Get Your Weather</h4>
+        </div>
+
+        {enableZip ?
+          (
+            <div>
+              <label htmlFor="zip-code-text-input-id" className={styles.zip_code_text_input_label}>
+                Enter a 5 digit zip code
+                <input
+                  id="zip-code-text-input-id"
+                  className={styles.zip_code_text_input}
+                  type="text"
+                  placeholder="Zip code"
+                  onChange={(event):void => handleZipCodeInput(event)}
+                  value={userZip}
+                />
+              </label>
+            </div>
+          )
+          :
+          (
+            <div>
+              <div>
+                <label htmlFor="city-text-input">
+                  Location
+                  <input
+                    id="city-text-input"
+                    type="text"
+                    placeholder="city"
+                    onChange={(event): void => setUserCity(event.target.value)}
+                    value={userCity}
+                  />
+                </label>
+                <div>
+                  <label htmlFor="select-state-input">
+                    Select State
+                    {/* attempted to keep select menu open. online search recommended 'multiple' attribute but this forces value prop to be an array. */}
+                    {/* TODO: find a way to control the open/close */}
+                    <select
+                      id="select-state-input"
+                      aria-labelledby="select-state-input"
+                      placeholder="select state"
+                      value={userStateAbb}
+                      onKeyDown={(event): void => {
+                        keyDownBuffer(event)();
+                      }}
+                      onChange={(event): void => {
+                        if (event) {
+                          console.log(event.target.value);
+                          setUserStateAbb(event.target.value);
+                        }
+                      }}
+                    >
+                      <option
+                        value=""
+                        label=""
+                        aria-label="none"
+                      />
+                      {statesKeys.map((state, idx) => (
+                        <option
+                          key={idx.toString() + state}
+                          value={state}
+                        >
+                          {state}
+                        </option>
+                      ))}
+                    </select>
+
+                  </label>
+
+                </div>
+              </div>
+            </div>
+          )}
+
+        <div style={{
+          minHeight: '1rem',
+        }}
+        />
+
+        <div className={styles.get_my_weather_button_wrapper}>
+          <button
+            className={styles.get_my_weather_button}
+            type="button"
+            aria-label="submit form"
+            onClick={(): void => {
+              handleSubmit();
+            }}
+          >
+            Get My Weather
+          </button>
+        </div>
+
+        <div style={{
+          minHeight: '1.25rem',
+        }}
+        />
+      </main>
+    </div>
   );
 }
 
