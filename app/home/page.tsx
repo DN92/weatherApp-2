@@ -1,6 +1,5 @@
 'use client';
 
-import { Paper, TextInput, Button, Text, Group, Select } from '@mantine/core';
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import states from '../../utility/statesDictionary';
@@ -8,12 +7,6 @@ import useLocationFromGeoApi from '../../hooks/useLocationFromGeoApi';
 
 const statesKeys = Object.keys(states);
 const stateFieldBuffer: [string, string] = ['', ''];
-
-const stateSelectorData = statesKeys
-  .concat('')
-  .concat('')
-  .sort()
-  .map((state) => ({ value: state, label: state, key: state + Math.floor(Math.random() * 100000) }));
 
 function Home(): React.ReactElement {
   const history = useRouter();
@@ -57,7 +50,8 @@ function Home(): React.ReactElement {
           if (states[stateToCheck]) {
             setUserStateAbb(stateToCheck);
           } else {
-            setUserStateAbb(statesKeys.find((ele) => ele[0] === stateToCheck[1]) ?? '');
+            const searchAbbsByFirstLetter = statesKeys.find((ele) => ele[0] === stateToCheck[1]);
+            if (searchAbbsByFirstLetter) setUserStateAbb(searchAbbsByFirstLetter);
           }
         }
       };
@@ -110,7 +104,6 @@ function Home(): React.ReactElement {
     setFormError('');
   }, [userCity, userState, userZip, enableZip]);
 
-
   return (
 
     <main
@@ -153,21 +146,38 @@ function Home(): React.ReactElement {
               </label>
               <div>
                 <label htmlFor="select-state-input">
+                  Select State
+                  {/* attempted to keep select menu open. online search recommended 'multiple' attribute but this forces value prop to be an array. */}
+                  {/* TODO: find a way to control the open/close */}
                   <select
                     id="select-state-input"
                     aria-labelledby="select-state-input"
                     placeholder="select state"
-                    data={stateSelectorData}
                     value={userStateAbb}
                     onKeyDown={(event): void => {
                       keyDownBuffer(event)();
                     }}
                     onChange={(event): void => {
                       if (event) {
-                        setUserState(event);
+                        console.log(event.target.value);
+                        setUserStateAbb(event.target.value);
                       }
                     }}
-                  />
+                  >
+                    <option
+                      value=""
+                      label=""
+                      aria-label="none"
+                    />
+                    {statesKeys.map((state, idx) => (
+                      <option
+                        key={idx.toString() + state}
+                        value={state}
+                      >
+                        {state}
+                      </option>
+                    ))}
+                  </select>
 
                 </label>
 
@@ -181,89 +191,30 @@ function Home(): React.ReactElement {
       }}
       />
 
-
-      {/* <Paper withBorder p="lg">
-        <Group position="apart">
-          <Text size="xl" weight={500}>
-            Get the Weather!
-          </Text>
-          <Group position="apart" mb="xs" />
-          <Text size="lg">
-            Select Desired Location
-          </Text>
-        </Group> */}
-
-      {/* {
-        enableZip && (
-          <Group position="apart">
-            <TextInput
-              label="Enter a 5 digit zip code"
-              placeholder="Zip code"
-              onChange={(event):void => handleZipCodeInput(event)}
-              value={userZip}
-            />
-          </Group>
-        )
-      } */}
-
-      {
-        !enableZip && (
-          <Group>
-            <Group position="apart">
-              <TextInput
-                label="Location"
-                placeholder="city"
-                onChange={(event): void => setUserCity(event.target.value)}
-                value={userCity}
-              />
-            </Group>
-            <Group position="apart">
-              <Select
-                label="select-state"
-                placeholder="select state"
-                data={stateSelectorData}
-                value={userStateAbb}
-                onKeyDown={(event): void => {
-                  keyDownBuffer(event)();
-                }}
-                onChange={(event): void => {
-                  if (event) {
-                    setUserState(event);
-                  }
-                }}
-              />
-            </Group>
-          </Group>
-        )
-      }
-
-      <Group>
-        <Button
-          variant="gradient"
-          size="md"
-          onClick={(): void => {
-            handleSubmit();
-          }}
-        >
-          Get My Weather
-        </Button>
-      </Group>
+      <button
+        type="button"
+        aria-label="submit form"
+        onClick={(): void => {
+          handleSubmit();
+        }}
+      >
+        Get My Weather
+      </button>
 
       <div style={{
         minHeight: '1.25rem',
       }}
       />
-      <Button
-        variant="gradient"
-        size="md"
+
+      <button
+        type="button"
+        aria-label={enableZip ? 'switch form to city and state' : 'switch form to use zip code'}
         onClick={(): void => {
           setEnableZip((prev) => !prev);
         }}
       >
         {enableZip ? 'Use City and State' : 'Use Zip Code'}
-      </Button>
-
-      {/* </Paper> */}
+      </button>
     </main>
   );
 }
