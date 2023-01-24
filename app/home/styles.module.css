@@ -1,8 +1,6 @@
 .component_wrapper {
-  background-color: blue;
-  display: flex;
-  flex-direction: column;
-  /* position: relative; */
+  border: 2px solid yellow;
+  min-height: var(--fullscreen-height);
 }
 
 .main {

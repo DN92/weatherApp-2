@@ -1,16 +1,7 @@
-function Layout({ children }: ReactChildren) {
-  const paperWrapperStyles: React.CSSProperties = {
-    position: 'absolute',
-    left: '50%',
-    top: '50%',
-    transform: 'translate(-50%, -50%)',
-    maxWidth: '500px',
-  };
-
+function Layout({ children }: ReactChildren): React.ReactElement {
   return (
     <main
       className="paper-wrapper"
-      style={paperWrapperStyles}
     >
       {children}
     </main>

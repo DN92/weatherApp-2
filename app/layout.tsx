@@ -1,16 +1,15 @@
 // Layouts must accept a children prop.
 // This will be populated with nested layouts or pages
 import '../CSS/index.css';
-import AppLayout from './AppLayout';
-// import RootStyleRegistry from "./emotion";
+import styles from './rootLayout.module.css';
 
-export default function RootLayout({ children }: { children: React.ReactNode; }) {
+export default function RootLayout({ children }: { children: React.ReactElement; }): React.ReactElement {
   return (
     <html lang="en">
       <body>
-        <AppLayout>
+        <div className={styles.app_wrapper}>
           {children}
-        </AppLayout>
+        </div>
       </body>
     </html>
   );

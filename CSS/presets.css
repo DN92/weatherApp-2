@@ -1,3 +1,33 @@
+/* VARIABLES */
+
+:root {
+
+  /* size : screen and other */
+
+  --SSxs: 480px;
+  --SSsm: 768px;
+  --SSmd: 1024px;
+  --SSlg: 1280px;
+  --SSxl: 40000px;
+
+  /* fonts */
+
+  --FSxxs: .75rem;
+  --FSxs: .875rem;
+  --FSsm: 1rem;
+  --FSmd: 1.25rem;
+  --FSml: 1.625rem;
+  --FSlg: 2rem;
+  --FSxl: 3rem;
+
+  /* other */
+
+  --fullscreen-height: calc(100vh - 3px)
+
+}
+
+/* PRESETS */
+
 * {
   line-height: 1.25;
 }

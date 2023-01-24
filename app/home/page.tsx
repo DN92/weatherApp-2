@@ -105,6 +105,8 @@ function Home(): React.ReactElement {
     setFormError('');
   }, [userCity, userState, userZip, enableZip]);
 
+
+  // JSX BELOW THIS LINE
   return (
     <div className={styles.component_wrapper}>
 

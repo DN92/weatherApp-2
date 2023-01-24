@@ -1,8 +1,5 @@
 @import "./RESETS.css";
 @import "./presets.css";
-@import "./VARIABLES.css";
 @import "./scrollbars.css";
 @import "./UTILITY.css";
-
-@import "./rootLayout.css";
 @import "./weatherr-icons.css";
