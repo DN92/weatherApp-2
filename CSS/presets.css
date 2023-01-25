@@ -22,7 +22,8 @@
 
   /* other */
 
-  --fullscreen-height: calc(100vh - 3px)
+  --fullscreen-height: calc(100vh - 3px);
+  --headline-button-offset: 2.5rem;
 
 }
 
