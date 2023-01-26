@@ -220,10 +220,6 @@ function Home(): React.ReactElement {
                 </div>
               </div>
             )}
-          <div style={{
-            minHeight: '1rem',
-          }}
-          />
           <div className={styles.get_my_weather_button_wrapper}>
             <button
               className={styles.get_my_weather_button}
@@ -236,10 +232,6 @@ function Home(): React.ReactElement {
               Get My Weather
             </button>
           </div>
-          <div style={{
-            minHeight: '1.25rem',
-          }}
-          />
         </main>
       </div>
     </div>
