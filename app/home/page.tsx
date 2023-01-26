@@ -132,7 +132,7 @@ function Home(): React.ReactElement {
             <input
               className={styles.search_bar_input}
               type="text"
-              placeholder="Enter a City or Zipcode"
+              placeholder="Search"
               value={userInput}
               onChange={(e) => {
                 setUserInput(e.target.value);
@@ -151,11 +151,18 @@ function Home(): React.ReactElement {
             </button>
           </div>
 
+          <div>
+            <p className={[styles.formError, 'truncate_text', 'error'].join(' ')}>
+              *&nbsp;&nbsp;
+              {formError}
+              FORM ERROR
+            </p>
+          </div>
+
           {enableZip ?
             (
               <div>
                 <label htmlFor="zip-code-text-input-id" className={styles.zip_code_text_input_label}>
-                  Enter a 5 digit zip code
                   <input
                     id="zip-code-text-input-id"
                     className={styles.zip_code_text_input}
@@ -229,7 +236,7 @@ function Home(): React.ReactElement {
                 handleSubmit();
               }}
             >
-              Get My Weather
+              Get Your Weather
             </button>
           </div>
         </main>

@@ -38,6 +38,17 @@
   font-weight: bold;
 }
 
+.error {
+  color: red;
+  white-space: nowrap;
+}
+
+.truncate_text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .FSxl {
   font-size: var(--FSxl)!important;
 }

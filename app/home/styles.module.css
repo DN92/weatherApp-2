@@ -10,6 +10,12 @@
   position: relative;
 }
 
+.formError {
+  margin: .375rem auto;
+  text-align: center;
+  max-width: 64%;
+}
+
 .main {
   background: linear-gradient(#6ac5fe, #8fd3fe );
   box-sizing: border-box;
@@ -56,13 +62,13 @@
   margin: 0;
   border: none;
   flex-grow: 2;
-  font-size: 1rem;
+  font-size: 1.5rem;
   background-color: none;
 }
 
 .search_bar_input::placeholder {
   text-align: center  ;
-  transform: translateX(-2.25rem);
+  transform: translate(-1rem, -1px);
 }
 
 .search_bar_input,
@@ -76,9 +82,8 @@
 .search_bar_wrapper:focus {
   opacity: 1;
   background-color: white;
-  border: 4px solid white;
+  border: 4px solid green;
   outline: 3px solid blue;
-
 }
 
 .title {

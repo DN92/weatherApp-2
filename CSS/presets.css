@@ -58,3 +58,8 @@ h6 {
   font-size: var(--FSxs);
   font-weight: bold;
 }
+
+input {
+  font: inherit;
+  font-weight: 700;
+}
