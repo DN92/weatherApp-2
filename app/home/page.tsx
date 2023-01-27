@@ -7,6 +7,9 @@ import states from '../../utility/statesDictionary';
 import useLocationFromGeoApi from '../../hooks/useLocationFromGeoApi';
 import styles from './styles.module.css';
 import magnifyingGlass from '../../images/magGlass.webp';
+import { getGeoCodeByCity, getGeoCodeByZip } from '../../calls/geocoding';
+
+type UserInputType = 'zipCode' | 'city' | '';
 
 const statesKeys = Object.keys(states);
 const stateFieldBuffer: [string, string] = ['', ''];
@@ -24,9 +27,9 @@ function Home(): React.ReactElement {
 
   const [userInput, setUserInput] = useState('');
 
-  function validateZipCode(): boolean {
-    return (userZip.length === 5 && /^(\d+,)*(\d+)$/.test(userZip) && !userZip.includes(' '));
-  }
+  // function validateZipCode(): boolean {
+  //   return (userZip.length === 5 && /^(\d+,)*(\d+)$/.test(userZip) && !userZip.includes(' '));
+  // }
 
   function resetCityState(): void {
     setUserCity('');
@@ -74,27 +77,63 @@ function Home(): React.ReactElement {
     }
   }
 
-  function handleSubmitWithZip(): void {
-    resetCityState();
-    if (!validateZipCode()) {
-      setFormError('Invalid ZipCode');
-    } else {
-      getCoordinates({ zipCode: userZip });
-    }
-  }
+  // function handleSubmitWithZip(): void {
+  //   resetCityState();
+  //   if (!validateZipCode()) {
+  //     setFormError('Invalid ZipCode');
+  //   } else {
+  //     getCoordinates({ zipCode: userZip });
+  //   }
+  // }
 
-  function handleSubmitWithCity(): void {
-    resetZip();
-    if (userCity && /^[a-zA-Z\s]+$/.test(userCity) && userState) {
-      getCoordinates({ city: userCity, state: userState });
-    }
-  }
+  // function handleSubmitWithCity(): void {
+  //   resetZip();
+  //   if (userCity && /^[a-zA-Z\s]+$/.test(userCity) && userState) {
+  //     getCoordinates({ city: userCity, state: userState });
+  //   }
+  // }
 
-  function handleSubmit(): void {
-    if (enableZip) {
-      handleSubmitWithZip();
-    } else {
-      handleSubmitWithCity();
+  // function handleSubmit(): void {
+  //   if (enableZip) {
+  //     handleSubmitWithZip();
+  //   } else {
+  //     handleSubmitWithCity();
+  //   }
+  // }
+
+  function handleSubmitNew(): void {
+    // closure functions
+    function deriveUserInput(input: string): UserInputType {
+      const inputAlter = input.replace(/\s+/g, ''); // remove spaces
+      const letters = /^[A-Za-z]+$/;
+      const numbers = /^[0-9]+$/;
+      const special = /[^A-Za-z0-9]/; // check special characters
+
+      if (inputAlter.match(special)) {
+        return '';
+      } if (inputAlter.match(letters)) {
+        return 'city';
+      } if (inputAlter.match(numbers)) {
+        return 'zipCode';
+      }
+      return '';
+    }
+
+    function validateZipCode(zip: string): boolean {
+      return /^[0-9]{5}$/.test(zip);
+    }
+    // <end closure functions>
+
+    switch (deriveUserInput(userInput)) {
+      case 'city': {
+        break;
+      }
+      case 'zipCode': {
+        break;
+      }
+      default:
+        setFormError('FORM ERROR DETECTED');
+        break;
     }
   }
 
@@ -128,18 +167,23 @@ function Home(): React.ReactElement {
           <div className={styles.title}>
             <h4>Get Your Weather</h4>
           </div>
-          <div className={styles.search_bar_wrapper}>
+          <form
+            id="search_bar_wrapper"
+            className={styles.search_bar_wrapper}
+            onSubmit={handleSubmitNew}
+          >
             <input
               className={styles.search_bar_input}
               type="text"
               placeholder="Search"
               value={userInput}
-              onChange={(e) => {
+              onChange={(e): void => {
                 setUserInput(e.target.value);
               }}
             />
             <button
-              type="button"
+              type="submit"
+              form="search_bar_wrapper"
               className={[styles.magGlass_btn, 'btn_nostyle'].join(' ')}
             >
               <Image
@@ -149,12 +193,12 @@ function Home(): React.ReactElement {
                 fill
               />
             </button>
-          </div>
+          </form>
 
-          <div>
+          <div className={formError ? '' : 'invisible'}>
             <p className={[styles.formError, 'truncate_text', 'error'].join(' ')}>
               *&nbsp;&nbsp;
-              {formError}
+              {`${(!!formError).toString()}`}
               FORM ERROR
             </p>
           </div>

@@ -8,7 +8,7 @@ import styles from '../CSS/loading-wrapper.module.css';
 
 console.log('styles check', typeof styles.loadingWrapper);
 
-function AppHome() {
+function AppHome(): React.ReactElement {
   const router = useRouter();
   const [trailingDotsCounter, setTrailingDotsCounter] = useState(0);
 
@@ -21,7 +21,7 @@ function AppHome() {
       clearInterval(interval);
       router.push('/home');
     }, 100);
-    return () => {
+    return (): void => {
       clearInterval(interval);
     };
   }, [router]);

@@ -7,6 +7,7 @@ interface GetCoordinatesArgsObj {
   city?: string,
   state?: string,
 }
+
 function isValidZipCode(zipCode: string): boolean {
   const validLength = zipCode.length === 5;
   const validNumeric = isNumeric(zipCode, false);
@@ -31,23 +32,26 @@ function useLocationFromGeoApi(
 
 
   async function getCoordinates(argsObj: GetCoordinatesArgsObj): Promise<void> {
+    let cleanupErrorsAtEnd = true;
     if (argsObj.zipCode && isValidZipCode(argsObj.zipCode)) {
       await getGeoCodeByZip(
         argsObj.zipCode,
         setGeoCodeResult as Dispatch<SetStateAction<OpenWeatherApiByZip>>,
         fetchErrorSet,
       );
-      formErrorSet('');
     } else if (argsObj.city && argsObj.state && isValidCityState(argsObj.city, argsObj.state)) {
       await getGeoCodeByCity(
-        argsObj.city,
-        argsObj.state,
+        argsObj.city || '',
+        argsObj.state || '',
         setGeoCodeResult as Dispatch<SetStateAction<OpenWeatherApiByCity>>,
         fetchErrorSet,
       );
-      formErrorSet('');
     } else {
+      cleanupErrorsAtEnd = false;
       formErrorSet('Enter a valid 5 digit zip code, or provide a City and State');
+    }
+    if (cleanupErrorsAtEnd) {
+      formErrorSet('');
     }
   }
 

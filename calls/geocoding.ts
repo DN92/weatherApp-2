@@ -13,7 +13,7 @@ export async function getGeoCodeByCity(
   successSetter: Dispatch<SetStateAction<OpenWeatherApiByCity>>,
   errorSetter?: Dispatch<SetStateAction<string>>,
   options?: GeoCodeOptions,
-) {
+): Promise<void> {
   const DF: GeoCodeOptions = {
     key: openWeatherKey,
     version: VERSION,
@@ -53,7 +53,7 @@ export async function getGeoCodeByZip(
   zipCode: string,
   successSetter: Dispatch<SetStateAction<OpenWeatherApiByZip>>,
   errorSetter?: Dispatch<SetStateAction<string>>,
-) {
+): Promise<void> {
   if (!isNumeric(zipCode, false)) {
     throw Error(`zipcode must be a numeric string, zipcode:: ${zipCode}`);
   }

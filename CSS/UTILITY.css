@@ -22,33 +22,6 @@
   flex-shrink: 0;
 }
 
-.icon {
-  color: purple;
-  font-size: 4rem;
-}
-
-.icon::before {
-}
-
-.purple-text {
-  color: purple;
-}
-
-.bold {
-  font-weight: bold;
-}
-
-.error {
-  color: red;
-  white-space: nowrap;
-}
-
-.truncate_text {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .FSxl {
   font-size: var(--FSxl)!important;
 }
@@ -75,4 +48,44 @@
 	padding: 0;
 	cursor: pointer;
 	outline: none;
+}
+
+.icon {
+  color: purple;
+  font-size: 4rem;
+}
+
+.icon::before {
+}
+
+
+.bold {
+  font-weight: bold;
+}
+
+.error {
+  color: red;
+  white-space: nowrap;
+}
+
+.half_circle {
+  width: 0;
+  height: 0;
+  border-top: 100vh solid transparent;
+  border-right: 100vw solid #F00;
+  border-bottom: 100vh solid transparent;
+}
+
+.purple-text {
+  color: purple;
+}
+
+.truncate_text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.invisible {
+  visibility: hidden;
 }
