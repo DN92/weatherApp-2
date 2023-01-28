@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import states, { inputHasState, findStateAbbr } from '../../utility/statesDictionary';
+import states, { inputHasState, findStateAbbr, stateToAbbr } from '../../utility/statesDictionary';
 import useLocationFromGeoApi from '../../hooks/useLocationFromGeoApi';
 import styles from './styles.module.css';
 import magnifyingGlass from '../../images/magGlass.webp';
@@ -12,21 +12,22 @@ import magnifyingGlass from '../../images/magGlass.webp';
 
 type UserInputType = 'zipCode' | 'city' | '';
 
+const DELAY_BUFFER: string = 'delay buffer';
+
 const statesKeys = Object.keys(states);
-const stateFieldBuffer: [string, string] = ['', ''];
 
 function Home(): React.ReactElement {
   const history = useRouter();
   const [userZip, setUserZip] = useState<string>('');
   const [userCity, setUserCity] = useState<string>('');
   const [userState, setUserState] = useState<string>('');
-  const [userStateAbb, setUserStateAbb] = useState<string>('');
   const [enableZip, setEnableZip] = useState<boolean>(true);
   const [fetchError, setFetchError] = useState<string>('');
   const [formError, setFormError] = useState<string>('');
   const [lon, lat, getCoordinates] = useLocationFromGeoApi(setFetchError, setFormError);
 
   const [userInput, setUserInput] = useState('');
+  const [submitBuffer, setSubmitBuffer] = useState<boolean>(false);
 
   function resetCityState(): void {
     setUserCity('');
@@ -44,57 +45,15 @@ function Home(): React.ReactElement {
     setFormError('');
   }
 
-  const keyDownBuffer = useCallback(
-    (event: React.KeyboardEvent) => {
-      return () => {
-        const input = Number(event.keyCode);
-        if ((input >= 65 && input <= 90) || (input >= 97 && input <= 122)) {
-          stateFieldBuffer[0] = stateFieldBuffer[1]; // eslint-disable-line
-          stateFieldBuffer[1] = event.key;
-          const stateToCheck = stateFieldBuffer.join('').toUpperCase();
-          if (states[stateToCheck]) {
-            setUserStateAbb(stateToCheck);
-          } else {
-            const searchAbbsByFirstLetter = statesKeys.find((ele) => ele[0] === stateToCheck[1]);
-            if (searchAbbsByFirstLetter) setUserStateAbb(searchAbbsByFirstLetter);
-          }
-        }
-      };
-    },
-    [],
-  );
-
-  function handleZipCodeInput(event: React.ChangeEvent<HTMLInputElement>): void {
-    const { value } = event.target;
-    console.log(value);
-    if (value.length <= 5 && (/^\d+$/.test(value) || value === '')) {
-      setUserZip(value);
-    } else if (!/^\d+$/.test(userZip)) { //  additional safeguard against non-numeric values entering this field
-      setUserZip('');
-    }
-  }
-
-  function handleSubmitWithZip(): void {
-    resetCityState();
-    getCoordinates({ zipCode: userZip });
-  }
-
-  function handleSubmitWithCity(): void {
-    resetZip();
-    if (userCity && /^[a-zA-Z\s]+$/.test(userCity) && userState) {
-      getCoordinates({ city: userCity, state: userState });
-    }
-  }
-
-  // function handleSubmit(): void {
-  //   if (enableZip) {
-  //     handleSubmitWithZip();
-  //   } else {
-  //     handleSubmitWithCity();
-  //   }
-  // }
-
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
+    if (submitBuffer) {
+      console.log('please wait a bit before submitting again');
+      setFormError(DELAY_BUFFER);
+      return;
+    }
+
+    setSubmitBuffer(true);
+
     // closure functions
     function deriveUserInput(input: string): UserInputType {
       const onlyLetters = /^[A-Za-z\s,.]*$/.test(input.trim());
@@ -108,6 +67,23 @@ function Home(): React.ReactElement {
       return '';
     }
 
+    const parseIntoCityState = (string: string): ([string, string | null]) | null => {
+      if (string.length === 0) {
+        return null;
+      }
+      const arrayedString = string.split(',').map((str) => str.trim());
+      if (arrayedString.length > 2) {
+        return null;
+      }
+      if (arrayedString.length === 2) {
+        return arrayedString as [string, string];
+      }
+      if (arrayedString.length === 1) {
+        return [arrayedString[0], null];
+      }
+      return null;
+    };
+
     function validateZipCode(zip: string): boolean {
       return /^[0-9]{5}$/.test(zip);
     }
@@ -116,20 +92,18 @@ function Home(): React.ReactElement {
     event.preventDefault();
     switch (deriveUserInput(userInput)) {
       case 'city': {
-        const stateInInput = inputHasState(userInput);
-        console.log('stateInINput": ', stateInInput);
-        if (stateInInput) {
-          const state = findStateAbbr(stateInInput);
-          const regex = /[^a-zA-Z0-9 ]/g;
-          const city = userInput.replace(stateInInput, '').replace(regex, '').trim();
-          if (!state) {
-            setFormError('bad state value');
-            break;
+        let city;
+        let state;
+        [city, state] = parseIntoCityState(userInput);
+        if (city && state) {
+          const abbrdState = stateToAbbr(state);
+          if (abbrdState) {
+            getCoordinates({ city, state: abbrdState });
           }
-          console.log('city and state', city || 'no city', state);
-          getCoordinates({ city, state });
+        } else if (city) {
+          getCoordinates({ city });
         } else {
-          getCoordinates({ city: userInput });
+          setFormError('case city errored');
         }
         break;
       }
@@ -159,6 +133,19 @@ function Home(): React.ReactElement {
   useEffect(() => {
     setFormError('');
   }, [userCity, userState, userZip, enableZip]);
+
+  // eslint-disable-next-line consistent-return
+  useEffect(() => {
+    if (formError === DELAY_BUFFER) {
+      setFormError('');
+    }
+    if (submitBuffer) {
+      const buffer = setTimeout(() => {
+        setSubmitBuffer(false);
+      }, 1500);
+      return clearTimeout(buffer);
+    }
+  }, [submitBuffer]); // formError is not applied to dep array since that would cause the timer error to clear instantly which is not desired behavior.
 
 
   // JSX BELOW THIS LINE--------------------------------------
@@ -212,87 +199,6 @@ function Home(): React.ReactElement {
               *&nbsp;&nbsp;
               {formError}
             </p>
-          </div>
-
-          {enableZip ?
-            (
-              <div>
-                <label htmlFor="zip-code-text-input-id" className={styles.zip_code_text_input_label}>
-                  <input
-                    id="zip-code-text-input-id"
-                    className={styles.zip_code_text_input}
-                    type="text"
-                    placeholder="Zip code"
-                    onChange={(event):void => handleZipCodeInput(event)}
-                    value={userZip}
-                  />
-                </label>
-              </div>
-            )
-            :
-            (
-              <div>
-                <div>
-                  <label htmlFor="city-text-input">
-                    Location
-                    <input
-                      id="city-text-input"
-                      type="text"
-                      placeholder="city"
-                      onChange={(event): void => setUserCity(event.target.value)}
-                      value={userCity}
-                    />
-                  </label>
-                  <div>
-                    <label htmlFor="select-state-input">
-                      Select State
-                      {/* attempted to keep select menu open. online search recommended 'multiple' attribute but this forces value prop to be an array. */}
-                      {/* TODO: find a way to control the open/close */}
-                      <select
-                        id="select-state-input"
-                        aria-labelledby="select-state-input"
-                        placeholder="select state"
-                        value={userStateAbb}
-                        onKeyDown={(event): void => {
-                          keyDownBuffer(event)();
-                        }}
-                        onChange={(event): void => {
-                          if (event) {
-                            console.log(event.target.value);
-                            setUserStateAbb(event.target.value);
-                          }
-                        }}
-                      >
-                        <option
-                          value=""
-                          label=""
-                          aria-label="none"
-                        />
-                        {statesKeys.map((state, idx) => (
-                          <option
-                            key={idx.toString() + state}
-                            value={state}
-                          >
-                            {state}
-                          </option>
-                        ))}
-                      </select>
-                    </label>
-                  </div>
-                </div>
-              </div>
-            )}
-          <div className={styles.get_my_weather_button_wrapper}>
-            <button
-              className={styles.get_my_weather_button}
-              type="button"
-              aria-label="submit form"
-              onClick={(e): void => {
-                handleSubmit(e);
-              }}
-            >
-              Get Your Weather
-            </button>
           </div>
         </main>
       </div>

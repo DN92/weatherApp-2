@@ -71,6 +71,15 @@ export function inputHasState(input: string): MatchesStates {
   return state;
 }
 
+export function stateToAbbr(input: string): string | undefined {
+  const cleanedInput = input.toLowerCase().trim();
+  const resultByKey = Object.keys(states).find((key) => key === cleanedInput);
+  if (resultByKey) {
+    return resultByKey;
+  }
+  return Object.keys(states).find((key) => states[key] === input);
+}
+
 export function findStateAbbr(value: string): string | null {
   const cleanedValue = value.replace(/[,_.]/g, ' ');
   return Object.keys(states).find((key) => states[key] === cleanedValue) || null;
