@@ -48,7 +48,7 @@ function useLocationFromGeoApi(
       );
     } else {
       cleanupErrorsAtEnd = false;
-      formErrorSet('Enter a valid 5 digit zip code, or provide a City and State');
+      formErrorSet('invalid input, getCoordinates:: argsObj:: ', argsObj);
     }
     if (cleanupErrorsAtEnd) {
       formErrorSet('');

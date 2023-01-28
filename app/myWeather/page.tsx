@@ -24,7 +24,7 @@ function getMaxAndMinAndAvg(data: Array<WeatherVariables> = []): [number, number
   return [Math.floor(min), Math.ceil(max), Math.floor(average)];
 }
 
-function getAverageHumidity(data: Array<WeatherVariables> = []) {
+function getAverageHumidity(data: Array<WeatherVariables> = []): number {
   if (!(data.length > 0 && data[0].humidity)) {
     return -1;
   }
@@ -33,7 +33,7 @@ function getAverageHumidity(data: Array<WeatherVariables> = []) {
 }
 
 // component starts here
-const MyWeather = async ({ searchParams }: Props) => {
+const MyWeather = async ({ searchParams }: Props): Promise<React.ReactElement> => {
   const { lat, lon } = searchParams;
   // guard
   if (!(lat && lon)) {

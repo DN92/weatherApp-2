@@ -37,7 +37,6 @@ export async function getGeoCodeByCity(
   );
   if (response.status >= 200 && response.status <= 299) {
     const data: Array<OpenWeatherApiByCity> = await response.json();
-    // console.log('data', data)
     console.log('data:: ', data);
     const resultArr = data.filter((ele) => ele.state?.toLowerCase() === state);
     console.log('result:: ', resultArr);
