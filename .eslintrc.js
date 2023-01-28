@@ -31,7 +31,7 @@ module.exports = {
   ],
 
   rules: {
-    indent: ['error', 2],
+    indent: ['error', 2, { SwitchCase: 1 }],
     'linebreak-style': ['error', 'unix'],
     quotes: ['error', 'single'],
     semi: 1,
@@ -62,6 +62,7 @@ module.exports = {
       'css', 'json'] }],
     'react/require-default-props': 0,
     '@typescript-eslint/no-unused-vars': 1,
+    '@typescript-eslint/no-inferrable-types': 0,
     '@typescript-eslint/explicit-function-return-type': 1,
     'import/extensions': [
       'error',

@@ -20,12 +20,12 @@ export async function getGeoCodeByCity(
     limit: '100',
   };
 
-  const path = 'https://api.openweathermap.org/geo/';
-  const key = options?.key || DF.key;
-  const version = options?.version || DF.version;
-  const limit = options?.limit || DF.limit;
-  const city = cityName.replaceAll(' ', '_');
-  const state = statesDictionary[stateAbbr];
+  const path: string = 'https://api.openweathermap.org/geo/';
+  const key: string | undefined = options?.key || DF.key;
+  const version: string | undefined = options?.version || DF.version;
+  const limit: string | undefined = options?.limit || DF.limit;
+  const city: string = cityName.replaceAll(' ', '_');
+  const state: string = statesDictionary[stateAbbr].toLowerCase();
 
   if (!key) {
     throw Error('no api key');
@@ -38,7 +38,9 @@ export async function getGeoCodeByCity(
   if (response.status >= 200 && response.status <= 299) {
     const data: Array<OpenWeatherApiByCity> = await response.json();
     // console.log('data', data)
+    console.log('data:: ', data);
     const resultArr = data.filter((ele) => ele.state?.toLowerCase() === state);
+    console.log('result:: ', resultArr);
 
     if (resultArr.length > 0) {
       console.log('THIS:: ', resultArr[0]);

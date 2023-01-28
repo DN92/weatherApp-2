@@ -1,3 +1,5 @@
+import states from './utility/statesDictionary';
+
 export {};
 
 declare global {
@@ -13,6 +15,8 @@ declare global {
     version?: string,
     limit?: string,
   }
+
+  type MatchesStates = typeof states[keyof typeof states] | null;
 
   interface OpenWeatherApiByCity {
     name: string,
