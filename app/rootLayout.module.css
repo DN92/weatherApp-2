@@ -1,6 +1,6 @@
 .app_wrapper {
   background-image: url('/images/background-1.avif');
-  /* min-height: calc(100vh - 3px); */
+  min-height: calc(100vh - 3px);
   min-height: var(--fullscreen-height);
   background-size: cover;
   margin: 0;

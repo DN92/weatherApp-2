@@ -20,7 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactElement;
   return (
     <html lang="en" className={roboto.className}>
       <body>
-        <div className={styles.app_wrapper}>
+        <div className={`${styles.app_wrapper}`}>
           {children}
         </div>
       </body>

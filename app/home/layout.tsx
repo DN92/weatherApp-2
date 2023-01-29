@@ -1,10 +1,10 @@
 function Layout({ children }: ReactChildren): React.ReactElement {
   return (
-    <main
-      className="paper-wrapper"
+    <div
+      className=""
     >
       {children}
-    </main>
+    </div>
   );
 }
 

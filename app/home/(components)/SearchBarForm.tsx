@@ -2,19 +2,22 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import useLocationFromGeoApi from '@/hooks/useLocationFromGeoApi';
+import { useRouter } from 'next/navigation';
+import { stateToAbbr } from '@/utility/statesDictionary';
+import styles from '../styles.module.css';
+import magnifyingGlass from '../../../images/magGlass.webp';
 
 const DELAY_BUFFER: string = 'delay buffer';
 type UserInputPossibles = 'zipCode' | 'city' | '';
 
-type InputProps = {
-
-};
-
-
-function SearchBarFrom({}: InputProps): React.ReactElement {
+function SearchBarFrom(): React.ReactElement {
+  const history = useRouter();
   const [submitBuffer, setSubmitBuffer] = useState<boolean>(false);
   const [userInput, setUserInput] = useState('');
   const [formError, setFormError] = useState<string>('');
+  const [fetchError, setFetchError] = useState<string>('');
+  const [lon, lat, getCoordinates] = useLocationFromGeoApi(setFetchError, setFormError);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     if (!userInput) return;
@@ -105,6 +108,30 @@ function SearchBarFrom({}: InputProps): React.ReactElement {
     }
   }
 
+  useEffect(() => {
+    if (!!lon && !!lat) {
+      history.push(`/myWeather/?lat=${lat}&lon=${lon}`);
+    }
+  }, [lon, lat, history]);
+
+  //  clear form error on form change
+  useEffect(() => {
+    setFormError('');
+  }, [userInput]);
+
+  // eslint-disable-next-line consistent-return
+  useEffect(() => {
+    if (formError === DELAY_BUFFER) {
+      setFormError('');
+    }
+    if (submitBuffer) {
+      const buffer = setTimeout(() => {
+        setSubmitBuffer(false);
+      }, 1500);
+      return clearTimeout(buffer);
+    }
+  }, [submitBuffer]); // formError is not applied to dep array since that would cause the timer error to clear instantly which is not desired behavior.
+
   return (
     <form
       id="search_bar_wrapper"
@@ -132,6 +159,12 @@ function SearchBarFrom({}: InputProps): React.ReactElement {
           fill
         />
       </button>
+      <div className={formError ? '' : 'invisible'}>
+        <p className={[styles.formError, 'truncate_text', 'error'].join(' ')}>
+          *&nbsp;&nbsp;
+          {formError}
+        </p>
+      </div>
     </form>
   );
 }

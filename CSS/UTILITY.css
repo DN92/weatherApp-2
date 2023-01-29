@@ -41,6 +41,18 @@
   font-size:var(--FSxs)!important;
 }
 
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
+.bold {
+  font-weight: bold;
+}
+
 .btn_nostyle {
   background: none;
 	color: inherit;
@@ -55,12 +67,8 @@
   font-size: 4rem;
 }
 
-.icon::before {
-}
-
-
-.bold {
-  font-weight: bold;
+.invisible {
+  visibility: hidden;
 }
 
 .error {
@@ -86,6 +94,26 @@
   text-overflow: ellipsis;
 }
 
-.invisible {
-  visibility: hidden;
+.brown {
+  background-color: rgba(165,42,42, 1)
+}
+
+.yellow {
+  background-color: rgb(255,255,0);
+}
+
+.yellow_opa100 {
+  background-color: rgba(255,255,0,1);
+}
+.yellow_opa75 {
+  background-color: rgba(255,255,0,.75);
+}
+.yellow_opa50 {
+  background-color: rgba(255,255,0,.5);
+}
+.yellow_opa375 {
+  background-color: rgba(255,255,0,.375);
+}
+.yellow_opa25 {
+  background-color: rgba(255,255,0,.25);
 }
