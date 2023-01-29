@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import states, { inputHasState, findStateAbbr, stateToAbbr } from '../../utility/statesDictionary';
+import { stateToAbbr } from '../../utility/statesDictionary';
 import useLocationFromGeoApi from '../../hooks/useLocationFromGeoApi';
 import styles from './styles.module.css';
 import magnifyingGlass from '../../images/magGlass.webp';
@@ -18,32 +18,11 @@ const DELAY_BUFFER: string = 'delay buffer';
 
 function Home(): React.ReactElement {
   const history = useRouter();
-  const [userZip, setUserZip] = useState<string>('');
-  const [userCity, setUserCity] = useState<string>('');
-  const [userState, setUserState] = useState<string>('');
-  const [enableZip, setEnableZip] = useState<boolean>(true);
+  const [userInput, setUserInput] = useState('');
   const [fetchError, setFetchError] = useState<string>('');
   const [formError, setFormError] = useState<string>('');
   const [lon, lat, getCoordinates] = useLocationFromGeoApi(setFetchError, setFormError);
-
-  const [userInput, setUserInput] = useState('');
   const [submitBuffer, setSubmitBuffer] = useState<boolean>(false);
-
-  function resetCityState(): void {
-    setUserCity('');
-    setUserState('');
-  }
-
-  function resetZip(): void {
-    setUserZip('');
-  }
-
-  function resetForm(): void {
-    setUserZip('');
-    setUserCity('');
-    setUserState('');
-    setFormError('');
-  }
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     if (!userInput) return;
@@ -68,7 +47,6 @@ function Home(): React.ReactElement {
       }
       return '';
     }
-
 
     const parseIntoCityState = (string: string): [string | null, string | null] => {
       if (string.length === 0) {
@@ -130,7 +108,7 @@ function Home(): React.ReactElement {
         break;
       }
       default:
-        setFormError('FORM ERROR DETECTED');
+        setFormError('Something went wrong');
         break;
     }
   }
@@ -146,7 +124,7 @@ function Home(): React.ReactElement {
   //  clear form error on form change
   useEffect(() => {
     setFormError('');
-  }, [userCity, userState, userZip, enableZip]);
+  }, [userInput]);
 
   // eslint-disable-next-line consistent-return
   useEffect(() => {
@@ -166,16 +144,6 @@ function Home(): React.ReactElement {
   return (
     <div className={styles.component_wrapper}>
       <div className={styles.component}>
-        <button
-          className={styles.use_city_and_state_button}
-          type="button"
-          aria-label={enableZip ? 'switch form to city and state' : 'switch form to use zip code'}
-          onClick={(): void => {
-            setEnableZip((prev) => !prev);
-          }}
-        >
-          {enableZip ? 'Use City and State' : 'Use Zip Code'}
-        </button>
         <main className={styles.main}>
           <div className={styles.title}>
             <h4>Get Your Weather</h4>

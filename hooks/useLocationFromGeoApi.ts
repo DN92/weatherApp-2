@@ -26,7 +26,6 @@ function useLocationFromGeoApi(
     return geoCodeResult?.lat || '';
   }, [geoCodeResult]);
 
-
   async function getCoordinates(argsObj: GetCoordinatesArgsObj): Promise<void> {
     let cleanupErrorsAtEnd = true;
     if (argsObj.zipCode && isValidZipCode(argsObj.zipCode)) {
