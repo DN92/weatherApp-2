@@ -14,10 +14,6 @@ function isValidZipCode(zipCode: string): boolean {
   return validLength && validNumeric;
 }
 
-function isValidCityState(city: string, state: string): boolean {
-  return Boolean(city.length >= 2 && state);
-}
-
 function useLocationFromGeoApi(
   fetchErrorSet: Dispatch<SetStateAction<string>>,
   formErrorSet: Dispatch<SetStateAction<string>>,
@@ -39,16 +35,16 @@ function useLocationFromGeoApi(
         setGeoCodeResult as Dispatch<SetStateAction<OpenWeatherApiByZip>>,
         fetchErrorSet,
       );
-    } else if (argsObj.city && argsObj.state && isValidCityState(argsObj.city, argsObj.state)) {
+    } else if (argsObj.city) {
       await getGeoCodeByCity(
-        argsObj.city || '',
+        argsObj.city,
         argsObj.state || '',
         setGeoCodeResult as Dispatch<SetStateAction<OpenWeatherApiByCity>>,
         fetchErrorSet,
       );
     } else {
       cleanupErrorsAtEnd = false;
-      formErrorSet('invalid input, getCoordinates:: argsObj:: ', argsObj);
+      formErrorSet(`invalid input, getCoordinates:: argsObj:: ${JSON.stringify(argsObj)}`);
     }
     if (cleanupErrorsAtEnd) {
       formErrorSet('');

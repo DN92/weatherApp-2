@@ -38,8 +38,12 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "./next.config.js",
+    "jest.config.js",
+    "__tests__",
+    "FORTESTING1.mjs"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    // "__tests__"
   ],
 }

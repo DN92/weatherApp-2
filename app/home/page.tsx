@@ -14,7 +14,7 @@ type UserInputType = 'zipCode' | 'city' | '';
 
 const DELAY_BUFFER: string = 'delay buffer';
 
-const statesKeys = Object.keys(states);
+// const statesKeys = Object.keys(states);
 
 function Home(): React.ReactElement {
   const history = useRouter();
@@ -46,6 +46,8 @@ function Home(): React.ReactElement {
   }
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
+    if (!userInput) return;
+
     if (submitBuffer) {
       console.log('please wait a bit before submitting again');
       setFormError(DELAY_BUFFER);
@@ -67,21 +69,38 @@ function Home(): React.ReactElement {
       return '';
     }
 
-    const parseIntoCityState = (string: string): ([string, string | null]) | null => {
+
+    const parseIntoCityState = (string: string): [string | null, string | null] => {
       if (string.length === 0) {
-        return null;
+        return [null, null];
       }
-      const arrayedString = string.split(',').map((str) => str.trim());
-      if (arrayedString.length > 2) {
-        return null;
+      const stringCln = string.trim().toLowerCase();
+      const regex = /[,\-_=:>\s?]+/g; // possible string separators including empty space
+
+      const splitArr = stringCln.split(regex)
+        .map((str) => str.trim())
+        .filter((str) => str !== '');
+      if (splitArr.length === 1) return [splitArr[0], null];
+
+      if (splitArr.length === 2) {
+        const possibleStateAbbr = stateToAbbr(splitArr[1]);
+        if (possibleStateAbbr) {
+          return splitArr as [string, string];
+        }
+        return [splitArr.join(' '), null];
       }
-      if (arrayedString.length === 2) {
-        return arrayedString as [string, string];
+
+      for (let i = 1; i <= 2; i++) {
+        const idxToTest = splitArr.length - i;
+        const possibleCity = splitArr.slice(0, idxToTest).join(' ');
+        const possibleState = splitArr.slice(idxToTest).join(' ');
+        const possibleStateAbbr = stateToAbbr(possibleState);
+        if (possibleStateAbbr) {
+          return [possibleCity, possibleStateAbbr];
+        }
       }
-      if (arrayedString.length === 1) {
-        return [arrayedString[0], null];
-      }
-      return null;
+      //  no match found
+      return [null, null];
     };
 
     function validateZipCode(zip: string): boolean {
@@ -92,18 +111,13 @@ function Home(): React.ReactElement {
     event.preventDefault();
     switch (deriveUserInput(userInput)) {
       case 'city': {
-        let city;
-        let state;
-        [city, state] = parseIntoCityState(userInput);
-        if (city && state) {
-          const abbrdState = stateToAbbr(state);
-          if (abbrdState) {
-            getCoordinates({ city, state: abbrdState });
-          }
+        const [city, stateAbbr] = parseIntoCityState(userInput);
+        if (city && stateAbbr) {
+          getCoordinates({ city: city, state: stateAbbr });
         } else if (city) {
-          getCoordinates({ city });
+          getCoordinates({ city: city });
         } else {
-          setFormError('case city errored');
+          setFormError('parseIntoCityState Failed');
         }
         break;
       }

@@ -51,6 +51,7 @@ module.exports = {
     'no-multiple-empty-lines': ['error', { max: 2 }],
     'no-underscore-dangle': 0,
     'no-useless-concat': 0,
+    'object-shorthand': 0,
     'padded-blocks': 1,
     'prefer-const': 0,
     'react-hooks/exhaustive-deps': 1,

@@ -81,7 +81,7 @@ export function stateToAbbr(input: string): string | undefined {
 }
 
 export function findStateAbbr(value: string): string | null {
-  const cleanedValue = value.replace(/[,_.]/g, ' ');
+  const cleanedValue = value.trim().replace(/[,_.]/g, ' ');
   return Object.keys(states).find((key) => states[key] === cleanedValue) || null;
 }
 
