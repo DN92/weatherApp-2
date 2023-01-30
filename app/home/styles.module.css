@@ -71,30 +71,6 @@
   outline: 3px solid rgba(255,255,0,1);
 }
 
-.sun_circle_outer {
-  width: 135%;
-  aspect-ratio: 1 / 1;
-  border-radius: 100%;
-  transform: translate(-13.1%, 55%);
-  background: radial-gradient(rgb(0,106,182), lightblue);
-  z-index: 10;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.sun_circle_inner {
-  width: 78%;
-  height: 88%;
-  /* aspect-ratio: 1 / 1; */
-  border-radius: inherit;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .title {
   text-align: center;
   padding: 5%;

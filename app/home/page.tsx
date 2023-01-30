@@ -8,21 +8,12 @@ import SearchBarFrom from './(components)/SearchBarForm';
 function Home(): React.ReactElement {
   // JSX BELOW THIS LINE--------------------------------------
   return (
-    <>
-      <main className={styles.main}>
-        <div className={styles.title}>
-          <h3>Find Location</h3>
-        </div>
-        <SearchBarFrom />
-      </main>
-      <div className={`${styles.sun_circle_outer} yellow_opa375 footer`}>
-
-        <div className={`${styles.sun_circle_inner} sun_in_blue_sky`} />
-
+    <main className={styles.main}>
+      <div className={styles.title}>
+        <h3>Find Location</h3>
       </div>
-    </>
-
-
+      <SearchBarFrom />
+    </main>
   );
 }
 

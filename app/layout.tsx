@@ -27,6 +27,9 @@ export default function RootLayout({ children }: { children: React.ReactElement;
             </div>
           </div>
         </div>
+        <div className={`${styles.sun_circle_outer} yellow_opa375 footer`}>
+          <div className={`${styles.sun_circle_inner} sun_in_blue_sky`} />
+        </div>
       </body>
     </html>
   );
