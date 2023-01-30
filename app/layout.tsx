@@ -21,7 +21,11 @@ export default function RootLayout({ children }: { children: React.ReactElement;
     <html lang="en" className={roboto.className}>
       <body>
         <div className={`${styles.app_wrapper}`}>
-          {children}
+          <div className={`${styles.component_wrapper} `}>
+            <div className={`${styles.component} sun_in_clouds`}>
+              {children}
+            </div>
+          </div>
         </div>
       </body>
     </html>

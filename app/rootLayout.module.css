@@ -1,8 +1,21 @@
 .app_wrapper {
   background-image: url('/images/background-1.avif');
-  min-height: calc(100vh - 3px);
   min-height: var(--fullscreen-height);
   background-size: cover;
-  margin: 0;
   padding: 0;
+}
+
+.component_wrapper {
+  margin: auto;
+  min-height: var(--fullscreen-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.component {
+  width: 100%;
+  min-height: var(--fullscreen-height);
+  position: relative;
+  overflow: hidden;
 }
