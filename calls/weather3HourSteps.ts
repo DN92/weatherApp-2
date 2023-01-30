@@ -13,7 +13,6 @@ export default async function getWeather3HourSteps(
     const response = await fetch(domain + path, { next: { revalidate: 60 * 60 } });
     if (response.status >= 200 && response.status <= 299) {
       const data = await response.json();
-      console.log(`showing results for ${data?.city?.name}`);
       const { list } = data;
       return list.map((ele: Record<'main', object> | Record<string, unknown>) => {
         if (ele.main) {

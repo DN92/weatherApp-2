@@ -1,8 +1,6 @@
 import { expect, jest, test } from '@jest/globals';
 import homepage from '../app/home/page';
 
-console.log('here:: ', homepage);
-
 function myTest(num1, num2) {
   return num1 + num2;
 }

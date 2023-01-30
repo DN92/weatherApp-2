@@ -12,7 +12,6 @@ function AppHome(): React.ReactElement {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      console.log('interval');
       setTrailingDotsCounter((dotsCounter) => (dotsCounter > 2 ? 0 : dotsCounter + 1));
     }, 650);
     setTimeout(() => {

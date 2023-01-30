@@ -1,7 +1,8 @@
+import styles from './myWeather2.module.css';
 
-function Layout({ children }: ReactChildren) {
+function Layout({ children }: ReactChildren): React.ReactElement {
   return (
-    <main className="myWeather-layout center">
+    <main className={styles.main}>
       {children}
     </main>
   );

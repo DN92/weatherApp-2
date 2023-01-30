@@ -3,6 +3,7 @@ import getWeather3HourSteps from '../../calls/weather3HourSteps';
 import TheTime from './TheTime';
 import { toTitleCase } from '../../utility/functions';
 import styles from './myWeather2.module.css';
+import WeatherMiniCard from './(components)/WeatherMiniCard';
 
 type Props = {
   searchParams: {
@@ -61,15 +62,29 @@ const MyWeather = async ({ searchParams }: Props): Promise<React.ReactElement> =
 
   // return <Fallback />;
 
+  // console.log('current:: ', currentWeather);
+  // console.log('three-hour', threeHourWeather);
+
   return (
-    <div className="">
-      <div className="">
+    <div className={styles.component_wrapper}>
+      <section className={styles.section_day_place}>
         <TheTime />
         <div>
-          <h3>{currentWeather?.name?.toUpperCase() || 'null'}</h3>
+          <h3 className={`${styles.title}`}>{currentWeather?.name?.toUpperCase() || 'null'}</h3>
         </div>
-      </div>
-      <div className="">
+      </section>
+      <section className={`${styles.current_temp}`}>
+        <p>
+          {Math.floor(currentWeather?.main?.temp as number) || 'unknown'}
+          {degC}
+        </p>
+      </section>
+      <section className={`${styles.weather_cards_wrapper}`}>
+        <WeatherMiniCard />
+        <WeatherMiniCard passedClasses={[styles.weather_cards_wrapper__second_child]} />
+        <WeatherMiniCard />
+      </section>
+      {/* <div className="">
         <div className="">
           <div className="">
             <p className="FSml">{weather?.description && toTitleCase(weather.description)}</p>
@@ -127,7 +142,7 @@ const MyWeather = async ({ searchParams }: Props): Promise<React.ReactElement> =
             <i className="icon wi wi-humidity" />
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

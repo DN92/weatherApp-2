@@ -1,0 +1,26 @@
+.mini_card_wrapper {
+  border: 2px solid blue;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  min-width: 4rem;
+}
+
+.mini_card_wrapper * {
+  color: white;
+}
+
+.section_icon {
+  height: 4.25rem;
+  width: 4.25rem;
+  border: 1px solid white;
+  border-radius: 100px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.section_time_descriptor {
+  padding: .75rem 0;
+}

@@ -77,7 +77,6 @@ export async function getGeoCodeByZip(
   if (response.status >= 200 && response.status <= 299) {
     const data: OpenWeatherApiByZip = await response.json();
     if (data) {
-      console.log('THIS:: ', data);
       successSetter(data);
     }
   } else if (errorSetter) {

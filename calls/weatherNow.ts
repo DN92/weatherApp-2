@@ -13,7 +13,6 @@ export default async function getWeatherNow(
     const response = await fetch(domain + path, { next: { revalidate: 60 * 60 } });
     if (response.status >= 200 && response.status <= 299) {
       const data = await response.json();
-      // console.log('weatherData:: ', data)
       return data;
     }
     //  else
