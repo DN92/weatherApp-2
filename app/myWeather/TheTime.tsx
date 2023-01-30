@@ -1,20 +1,17 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import useMediaQuery from '../../hooks/useMediaQuery';
+import styles from './myWeather2.module.css';
 
-
-function TheTime() {
-  const { maxSize: screenSize, name } = useMediaQuery();
+function TheTime(): React.ReactElement {
   const [now, setNow] = useState(new Date());
-  const theHour = useMemo(() => {
-    const hour = now.getHours();
-    return hour === 0 ? 12 : hour;
-  }, [now]);
-  const theMinute = useMemo(() => {
-    const minute = now.getMinutes();
-    return minute < 10 ? `0${minute.toString()}` : minute;
-  }, [now]);
+  const dateToString = useMemo(() => (
+    now.toLocaleDateString('en-US', {
+      weekday: 'long',
+      month: 'long',
+      day: 'numeric',
+    })
+  ), [now]);
   const [flashSemiColon, setFlashSemiColon] = useState(false);
 
   useEffect(() => {
@@ -31,13 +28,9 @@ function TheTime() {
   }, []);
 
   return (
-    <div className="weather-today-clock">
-      <p>
-        {screenSize > 800 ? 'The Time is' : ''}
-        {' '}
-        {theHour}
-        <span style={{ opacity: (flashSemiColon ? 0 : 1) }}>:</span>
-        {theMinute}
+    <div className={`${styles.clock}`}>
+      <p className={`${styles.dateToString}`}>
+        {dateToString}
       </p>
     </div>
   );

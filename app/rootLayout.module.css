@@ -1,23 +1,18 @@
 .app_wrapper {
   background-image: url('/images/background-1.avif');
-  min-height: var(--fullscreen-height);
   background-size: cover;
   padding: 0;
+  position: relative;
+  overflow: hidden;
+  min-height: var(--fullscreen-height);
 }
 
 .component_wrapper {
-  margin: auto;
-  min-height: var(--fullscreen-height);
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .component {
   width: 100%;
   min-height: var(--fullscreen-height);
-  position: relative;
-  overflow: hidden;
 }
 
 .sun_circle_outer {
@@ -26,7 +21,7 @@
   border-radius: 100%;
   transform: translate(-13.1%, 55%);
   background: radial-gradient(rgb(0,106,182), lightblue);
-  z-index: 10;
+  overflow: hidden;
 
   display: flex;
   justify-content: center;

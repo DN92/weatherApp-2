@@ -20,16 +20,18 @@ export default function RootLayout({ children }: { children: React.ReactElement;
   return (
     <html lang="en" className={roboto.className}>
       <body>
+        {/* no elements above */}
         <div className={`${styles.app_wrapper}`}>
           <div className={`${styles.component_wrapper} `}>
             <div className={`${styles.component} sun_in_clouds`}>
               {children}
             </div>
           </div>
+          <div className={`${styles.sun_circle_outer} yellow_opa375 footer`}>
+            <div className={`${styles.sun_circle_inner} sun_in_blue_sky`} />
+          </div>
         </div>
-        <div className={`${styles.sun_circle_outer} yellow_opa375 footer`}>
-          <div className={`${styles.sun_circle_inner} sun_in_blue_sky`} />
-        </div>
+        {/* no elements below */}
       </body>
     </html>
   );

@@ -17,16 +17,18 @@
   justify-content: space-between;
   align-items: baseline;
   padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .weather_today_grid {
   box-sizing: border-box;
   padding: 0 1rem;
-  /* margin: 0;
-  padding: 0; */
+  margin: 0;
+  padding: 0;
   display: grid;
   gap: .25rem;
-  /* grid-template-columns: repeat(3, 1fr); */
+  grid-template-columns: repeat(3, 1fr);
   grid-template-areas:
     'one'
     'two'
@@ -76,7 +78,7 @@
 }
 
 .weather-today-clock {
-  align-self: flex-end;
+  text-align: center;
 }
 
 .weather-today-clock * {

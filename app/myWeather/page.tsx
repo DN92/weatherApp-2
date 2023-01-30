@@ -1,18 +1,18 @@
 import getWeatherNow from '../../calls/weatherNow';
 import getWeather3HourSteps from '../../calls/weather3HourSteps';
 import TheTime from './TheTime';
-import Fallback from './Fallback';
 import { toTitleCase } from '../../utility/functions';
-import styles from '../../CSS/myWeather.module.css';
+import styles from './myWeather2.module.css';
 
-interface Props {
+type Props = {
   searchParams: {
     lat: string,
     lon: string,
   }
-}
+};
 
 const degC = '\u00b0' + 'C';
+const degF = '\u00b0' + 'F';
 
 function getMaxAndMinAndAvg(data: Array<WeatherVariables> = []): [number, number, number] | Array<null> {
   if (!(data.length > 0 && data[0].temp_min && data[0].temp_max)) {
@@ -62,17 +62,16 @@ const MyWeather = async ({ searchParams }: Props): Promise<React.ReactElement> =
   // return <Fallback />;
 
   return (
-    <div className={styles.weather_today_container}>
-      <div className={styles.weather_today_header}>
+    <div className="">
+      <div className="">
+        <TheTime />
         <div>
-          <h3>TODAY IN</h3>
           <h3>{currentWeather?.name?.toUpperCase() || 'null'}</h3>
         </div>
-        <TheTime />
       </div>
-      <div className={styles.weather_today_grid}>
-        <div className={styles.weather_today_grid_child}>
-          <div className={styles.weather_today_p}>
+      <div className="">
+        <div className="">
+          <div className="">
             <p className="FSml">{weather?.description && toTitleCase(weather.description)}</p>
             <p className="FSmd">Expect to See</p>
           </div>
@@ -80,8 +79,8 @@ const MyWeather = async ({ searchParams }: Props): Promise<React.ReactElement> =
             <i className="icon wi wi-cloud" />
           </div>
         </div>
-        <div className={styles.weather_today_grid_child}>
-          <div className={styles.weather_today_p}>
+        <div className="">
+          <div className="">
             <p className="FSlg">{average + degC}</p>
             <p className="FSmd">
               Today
@@ -93,8 +92,8 @@ const MyWeather = async ({ searchParams }: Props): Promise<React.ReactElement> =
             <i className="icon wi wi-sunset" />
           </div>
         </div>
-        <div className={styles.weather_today_grid_child}>
-          <div className={styles.weather_today_p}>
+        <div className="">
+          <div className="">
             <p className="FSlg">{max + degC}</p>
             <p className="FSmd">
               Today
@@ -106,8 +105,8 @@ const MyWeather = async ({ searchParams }: Props): Promise<React.ReactElement> =
             <i className="icon wi wi-thermometer" />
           </div>
         </div>
-        <div className={styles.weather_today_grid_child}>
-          <div className={styles.weather_today_p}>
+        <div className="">
+          <div className="">
             <p className="FSlg">{min + degC}</p>
             <p className="FSmd">
               Today
@@ -119,8 +118,8 @@ const MyWeather = async ({ searchParams }: Props): Promise<React.ReactElement> =
             <i className="icon wi wi-thermometer-exterior" />
           </div>
         </div>
-        <div className={styles.weather_today_grid_child}>
-          <div className={styles.weather_today_p}>
+        <div className="">
+          <div className="">
             <p className="FSlg">{humidity === -1 ? 'Could not obtain humidity' : `${humidity}%`}</p>
             <p className="FSmd">Average Humidity</p>
           </div>
