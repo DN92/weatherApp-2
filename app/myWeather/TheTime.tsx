@@ -17,7 +17,7 @@ function TheTime(): React.ReactElement {
   useEffect(() => {
     const interval1 = setInterval(() => {
       setNow(new Date());
-    }, 60 * 1000);
+    }, 60 * 1000); // update the time every minute
     const interval2 = setInterval(() => {
       setFlashSemiColon((prev) => !prev);
     }, 750);

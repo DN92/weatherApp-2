@@ -73,7 +73,8 @@ declare global {
     humidity?: number,
     sea_level?: number,
     grnd_level?: number,
-    temp_kf?: number
+    temp_kf?: number,
+    description?: string,
   }
 }
 

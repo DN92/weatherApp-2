@@ -13,13 +13,11 @@ export default async function getWeather3HourSteps(
     const response = await fetch(domain + path, { next: { revalidate: 60 * 60 } });
     if (response.status >= 200 && response.status <= 299) {
       const data = await response.json();
+      // console.log('raw data:: ', data);
       const { list } = data;
-      return list.map((ele: Record<'main', object> | Record<string, unknown>) => {
-        if (ele.main) {
-          return ele.main;
-        }
-        return [];
-      });
+      return list.map((ele) => (
+        { ...ele.main, description: ele.weather[0].description }
+      ));
     }
     // else
     throw Error('response outside 200 range, from function: getWeather3HourSteps');

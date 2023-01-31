@@ -12,6 +12,8 @@ type Props = {
   }
 };
 
+// non component constants
+
 const degC = '\u00b0' + 'C';
 const degF = '\u00b0' + 'F';
 
@@ -32,6 +34,7 @@ function getAverageHumidity(data: Array<WeatherVariables> = []): number {
   const humidities = data.map((ele) => ele.humidity as number);
   return Math.floor(humidities.reduce((a, b) => a + b) / humidities.length);
 }
+// end
 
 // component starts here
 const MyWeather = async ({ searchParams }: Props): Promise<React.ReactElement> => {
@@ -80,9 +83,13 @@ const MyWeather = async ({ searchParams }: Props): Promise<React.ReactElement> =
         </p>
       </section>
       <section className={`${styles.weather_cards_wrapper}`}>
-        <WeatherMiniCard />
-        <WeatherMiniCard passedClasses={[styles.weather_cards_wrapper__second_child]} />
-        <WeatherMiniCard />
+        {threeHourWeather && threeHourWeather?.length >= 3 && (
+          <>
+            <WeatherMiniCard step={1} weather={threeHourWeather[0]} />
+            <WeatherMiniCard step={2} weather={threeHourWeather[1]} passedClasses={[styles.weather_cards_wrapper__second_child]} />
+            <WeatherMiniCard step={3} weather={threeHourWeather[2]} />
+          </>
+        )}
       </section>
       {/* <div className="">
         <div className="">
