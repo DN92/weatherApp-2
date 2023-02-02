@@ -37,6 +37,13 @@ declare global {
 
   type OpenWeatherApiLocation = OpenWeatherApiByCity | OpenWeatherApiByZip;
 
+  type OpenWeatherThreeHourCall = {
+    name: string,
+    sunrise: Date,
+    sunset: Date,
+    list: Array<WeatherVariables>
+  };
+
   type OpenWeatherUnits = 'standard' | 'metric' | 'imperial';
 
   type ReactChildren = { children: React.ReactNode };

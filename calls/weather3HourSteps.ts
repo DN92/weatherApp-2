@@ -1,11 +1,13 @@
 // api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
 
+import { toTitleCase } from '@/utility/functions';
+
 export default async function getWeather3HourSteps(
   lat: string,
   lon: string,
   units: OpenWeatherUnits,
   count = 8, // number of list elements returned. 8 should give us 24hours worth
-): Promise<Array<object> | undefined> {
+): Promise<OpenWeatherThreeHourCall | undefined> {
   try {
     const key = process.env.NEXT_PUBLIC_OPENWHETHER_API;
     const domain = 'https://api.openweathermap.org';
@@ -13,11 +15,18 @@ export default async function getWeather3HourSteps(
     const response = await fetch(domain + path, { next: { revalidate: 60 * 60 } });
     if (response.status >= 200 && response.status <= 299) {
       const data = await response.json();
-      // console.log('raw data:: ', data);
-      const { list } = data;
-      return list.map((ele) => (
-        { ...ele.main, description: ele.weather[0].description }
+      console.log('raw data:: ', data);
+      const { city, list } = data;
+      const { name, sunrise, sunset } = city;
+      const revampedList = list.map((ele) => (
+        { ...ele.main, description: toTitleCase(ele.weather[0].description) }
       ));
+      return {
+        name,
+        sunrise,
+        sunset,
+        list: revampedList,
+      };
     }
     // else
     throw Error('response outside 200 range, from function: getWeather3HourSteps');

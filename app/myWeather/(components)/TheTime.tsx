@@ -29,9 +29,9 @@ function TheTime(): React.ReactElement {
 
   return (
     <div className={`${styles.clock}`}>
-      <p className={`${styles.dateToString}`}>
+      <h3 className={`${styles.dateToString}`}>
         {dateToString}
-      </p>
+      </h3>
     </div>
   );
 }

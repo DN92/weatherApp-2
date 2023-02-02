@@ -1,8 +1,8 @@
-import getWeatherNow from '../../calls/weatherNow';
 import getWeather3HourSteps from '../../calls/weather3HourSteps';
 import TheTime from './(components)/TheTime';
 import styles from './myWeather.module.css';
 import WeatherMiniCard from './(components)/WeatherMiniCard';
+import { getIconFromDesc } from '../../utility/weatherIconDic';
 
 type Props = {
   searchParams: {
@@ -38,11 +38,13 @@ function getAverageHumidity(data: Array<WeatherVariables> = []): number {
 // component starts here
 const MyWeather = async ({ searchParams }: Props): Promise<React.ReactElement> => {
   const { lat, lon } = searchParams;
+  const weather: OpenWeatherThreeHourCall | undefined = await getWeather3HourSteps(lat, lon, 'metric');
+
   // guard
-  if (!(lat && lon)) {
+  if (!(lat && lon) || !weather) {
     return (
       <div>
-        Did Not Receive Longitude and/or Latitude
+        Did Not Receive Longitude and/or Latitude or api call failed
         <p>
           lat:
           {lat}
@@ -54,42 +56,39 @@ const MyWeather = async ({ searchParams }: Props): Promise<React.ReactElement> =
       </div>
     );
   }
+
+  const [min, max, average] = getMaxAndMinAndAvg(weather.list);
+  const humidity = getAverageHumidity(weather.list);
   // end guard
 
-  const currentWeather = await getWeatherNow(lat, lon, 'metric') as WeatherData;
-  const threeHourWeather: Array<WeatherVariables> | undefined = await getWeather3HourSteps(lat, lon, 'metric');
-  const [min, max, average] = getMaxAndMinAndAvg(threeHourWeather);
-  const humidity = getAverageHumidity(threeHourWeather);
-  const weather = currentWeather?.weather?.[0];
-
-  // return <Fallback />;
-
-  // console.log('current:: ', currentWeather);
-  // console.log('three-hour', threeHourWeather);
+  // console.log('three-hour', weather);
 
   return (
     <div className={styles.component_wrapper}>
-      <section className={styles.section_day_place}>
+      <section className={`${styles.section_day_place} blue-text`}>
         <TheTime />
         <div>
-          <h3 className={`${styles.title}`}>{currentWeather?.name?.toUpperCase() || 'null'}</h3>
+          <h3 className={`${styles.title}`}>{weather.name?.toUpperCase() || 'null'}</h3>
         </div>
       </section>
-      <section className={`${styles.current_temp}`}>
-        <p>
-          {Math.floor(currentWeather?.main?.temp as number) || 'unknown'}
+      <section className={`${styles.current_temp} blue-text`}>
+        <p className={`${styles.current_temp_text}`}>
+          {Math.floor(weather.list[0]?.temp) ?? 'unknown'}
           {degC}
         </p>
+        <p className={`${styles.current_description_text}`}>{weather.list[0]?.description}</p>
       </section>
       <section className={`${styles.weather_cards_wrapper}`}>
-        {threeHourWeather && threeHourWeather?.length >= 3 && (
+        {weather.list.length >= 4 && (
           <>
-            <WeatherMiniCard step={1} weather={threeHourWeather[0]} />
-            <WeatherMiniCard step={2} weather={threeHourWeather[1]} passedClasses={[styles.weather_cards_wrapper__second_child]} />
-            <WeatherMiniCard step={3} weather={threeHourWeather[2]} />
+            <WeatherMiniCard step={1} weather={weather.list[1]} />
+            <WeatherMiniCard step={2} weather={weather.list[2]} passedClasses={[styles.weather_cards_wrapper__second_child]} />
+            <WeatherMiniCard step={3} weather={weather.list[3]} />
           </>
         )}
       </section>
+      <section className={`${styles.foot_icon} wi ${getIconFromDesc(weather.list[0]?.description ?? '')}`} />
+
       {/* <div className="">
         <div className="">
           <div className="">

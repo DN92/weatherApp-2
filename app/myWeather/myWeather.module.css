@@ -1,33 +1,53 @@
 .component_wrapper {
-  min-height: 67vh;
+  min-height: var(--fullscreen-height);
   border: 2px solid yellow;
   position: relative;
 }
 
 .current_temp {
   text-align: center;
-  font-size: 7rem;
+  border: 2px solid purple;
+}
+
+.current_temp_text {
+  font-size: 6rem;
+}
+
+.current_description_text{
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.foot_icon {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  padding: 3rem;
+  font-size: 6rem;
+  font-weight: bold;
+  color: white;
 }
 
 .section_day_place {
-  padding: 5rem 0 5rem 0;
+  padding: 3rem 0 3rem 0;
   border: 3px solid red;
 }
 
 .title {
   text-align: center;
   font-size: 3rem;
-  border: 1px solid teal;
+  border: 2px solid teal;
 }
 
 .weather_cards_wrapper {
   border: 2px solid pink;
   position: absolute;
-  bottom: 0;
+  bottom: 14rem;
   left: 50%;
   transform: translateX(-50%);
-  width: 90%;
-  min-height: 120px;
+  min-height: 7.5rem;
 
   display: flex;
   justify-content: space-between;

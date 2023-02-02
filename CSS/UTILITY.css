@@ -99,6 +99,14 @@
   background-color: rgba(165,42,42, 1)
 }
 
+.white-text {
+  color: white;
+}
+
+.blue-text {
+  color: #2e5984;
+}
+
 .yellow {
   background-color: rgb(255,255,0);
 }

@@ -28,11 +28,15 @@ export const dayIconDic: Record<string, string> = {
 };
 
 export const nightIconDic: Record<string, string> = {
-  nightAltCloud: 'wi-night-alt-cloudy',
+  clear: 'wi-night-clear',
+  cloud: 'wi-night-cloudy',
+  cloudyGust: 'wi-night-cloudy-gusts',
+  cloudyWind: 'wi-night-cloudy-windy',
   gusts: 'wi-night-alt-cloudy-gusts',
-  windy: 'wi-night-alt-cloudy-windy',
+  fog: 'wi-night-fog',
   hail: 'wi-night-alt-hail',
   lightning: 'wi-night-alt-lightning',
+  nightAltCloud: 'wi-night-alt-cloudy',
   rain: 'wi-night-alt-rain',
   rainMix: 'wi-night-alt-rain-mix',
   rainWind: 'wi-night-alt-rain-wind',
@@ -45,11 +49,7 @@ export const nightIconDic: Record<string, string> = {
   sprinkle: 'wi-night-alt-sprinkle',
   stormShower: 'wi-night-alt-storm-showers',
   thunderstorm: 'wi-night-alt-thunderstorm',
-  clear: 'wi-night-clear',
-  cloud: 'wi-night-cloudy',
-  cloudyGust: 'wi-night-cloudy-gusts',
-  cloudyWind: 'wi-night-cloudy-windy',
-  fog: 'wi-night-fog',
+  windy: 'wi-night-alt-cloudy-windy',
 };
 
 const dayIconDicKeys = Object.keys(dayIconDic);
@@ -57,11 +57,16 @@ const nightIconDicKeys = Object.keys(nightIconDic);
 
 export function getIconFromDesc(description: string, isNight: boolean = false): string {
   let clnString: string = description.trim().toLowerCase();
-  console.log(clnString, 'STRING INPUT');
   if (clnString.length < 2) return '';
   if (isNight) {
+    if (clnString.includes('clear')) {
+      return nightIconDic.sunny;
+    }
     const classNameResult = nightIconDicKeys.find((ele) => ele.toLowerCase().includes(clnString)) ?? '';
     if (classNameResult) return nightIconDic[classNameResult];
   }
-  return dayIconDic[dayIconDicKeys.find((ele) => clnString.includes(ele.toLowerCase())) ?? ''] ?? '';
+  return clnString.includes('clear') ?
+    dayIconDic.sunny
+    :
+    dayIconDic[dayIconDicKeys.find((ele) => clnString.includes(ele.toLowerCase())) ?? ''] ?? '';
 }
