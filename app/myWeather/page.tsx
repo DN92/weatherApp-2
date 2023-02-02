@@ -67,8 +67,18 @@ const MyWeather = async ({ searchParams }: Props): Promise<React.ReactElement> =
     <div className={styles.component_wrapper}>
       <section className={`${styles.section_day_place} blue-text`}>
         <TheTime />
-        <div>
-          <h3 className={`${styles.title}`}>{weather.name?.toUpperCase() || 'null'}</h3>
+        <div className={`${styles.title_wrapper}`}>
+          <h3 className={`${styles.title}`}>{weather.name.toUpperCase()}</h3>
+          <div className={`${styles.title_subsection}`}>
+            <aside className={`${styles.title_subsection_aside}`}>
+              <p className="icon_small wi wi-sunrise" />
+              <span>{`${weather.sunrise.getHours()}:${weather.sunrise.getMinutes().toString().padStart(2, '0')}`}</span>
+            </aside>
+            <aside className={`${styles.title_subsection_aside} row_reverse`}>
+              <p className=" icon_small wi wi-sunset" />
+              <span>{`${weather.sunset.getHours()}:${weather.sunset.getMinutes().toString().padStart(2, '0')}`}</span>
+            </aside>
+          </div>
         </div>
       </section>
       <section className={`${styles.current_temp} blue-text`}>

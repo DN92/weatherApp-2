@@ -24,7 +24,11 @@
 
   --fullscreen-height: calc(100vh - 0px);
   --headline-button-offset: 2.5rem;
-  --input-gradient-toside: linear-gradient(90deg, white, #f5f5f5)
+  --input-gradient-toside: linear-gradient(90deg, white, #f5f5f5);
+
+  /* COLORS */
+
+  --blue-400: ##2e5984;
 
 }
 

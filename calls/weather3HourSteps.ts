@@ -15,16 +15,16 @@ export default async function getWeather3HourSteps(
     const response = await fetch(domain + path, { next: { revalidate: 60 * 60 } });
     if (response.status >= 200 && response.status <= 299) {
       const data = await response.json();
-      console.log('raw data:: ', data);
+      console.log('DATA RAW:: ', data);
       const { city, list } = data;
-      const { name, sunrise, sunset } = city;
+      const { name, sunrise, sunset } = city; // sunrise and sunset return UNIX time
       const revampedList = list.map((ele) => (
         { ...ele.main, description: toTitleCase(ele.weather[0].description) }
       ));
       return {
         name,
-        sunrise,
-        sunset,
+        sunrise: new Date((sunrise * 1000)),
+        sunset: new Date((sunset * 1000)),
         list: revampedList,
       };
     }

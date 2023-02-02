@@ -64,8 +64,18 @@
 }
 
 .icon {
-  color: purple;
   font-size: 4rem;
+}
+
+.icon_small {
+  font-size: 3rem;
+}
+
+.icon,
+.icon_small {
+  color: var(--blue-400);
+  font-weight: bold;
+
 }
 
 .invisible {
@@ -87,6 +97,10 @@
 
 .purple-text {
   color: purple;
+}
+
+.row_reverse {
+  flex-direction: row-reverse;
 }
 
 .truncate_text {
