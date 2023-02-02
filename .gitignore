@@ -19,6 +19,7 @@ FORTESTING.mjs
 # misc
 .DS_Store
 *.pem
+__ref__
 
 # debug
 npm-debug.log*

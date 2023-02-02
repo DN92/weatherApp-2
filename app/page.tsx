@@ -6,9 +6,6 @@ import Image from 'next/image';
 import LoadingSun from '../images/loadingSun.gif';
 import styles from '../CSS/loading-wrapper.module.css';
 
-const screen = new ScreenOrientation();
-screen.lock('portrait');
-
 function AppHome(): React.ReactElement {
   const router = useRouter();
   const [trailingDotsCounter, setTrailingDotsCounter] = useState(0);

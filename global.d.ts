@@ -65,7 +65,7 @@ declare global {
   }
 
   interface WeatherVariables {
-    temp?: number,
+    temp: number,
     feels_like?: number,
     temp_min?: number,
     temp_max?: number,
@@ -74,7 +74,7 @@ declare global {
     sea_level?: number,
     grnd_level?: number,
     temp_kf?: number,
-    description?: string,
+    description: string,
   }
 }
 
