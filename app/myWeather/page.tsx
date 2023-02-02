@@ -1,8 +1,7 @@
 import getWeatherNow from '../../calls/weatherNow';
 import getWeather3HourSteps from '../../calls/weather3HourSteps';
-import TheTime from './TheTime';
-import { toTitleCase } from '../../utility/functions';
-import styles from './myWeather2.module.css';
+import TheTime from './(components)/TheTime';
+import styles from './myWeather.module.css';
 import WeatherMiniCard from './(components)/WeatherMiniCard';
 
 type Props = {

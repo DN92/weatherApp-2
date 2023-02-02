@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import styles from './myWeather2.module.css';
+import styles from './theTime.module.css';
 
 function TheTime(): React.ReactElement {
   const [now, setNow] = useState(new Date());

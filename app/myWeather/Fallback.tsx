@@ -1,4 +1,4 @@
-import styles from '../../CSS/myWeather.module.css';
+import styles from './myWeather.module.css';
 import LoadingSun from '../LoadingSun';
 
 export default function Fallback() {

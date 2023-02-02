@@ -1,97 +1,39 @@
-.my_weather_layout {
-  height: 95%;
-  width: 90%;
-  background: linear-gradient(rgba(100, 149, 237, .2), rgba(40,143,191, .2));
-  border-radius: 20px;
-  overflow-x: hidden;
-  overflow-y: scroll;
-}
-
-.weather_today_container {
-  margin: auto;
-  width: 100%;
-}
-
-.weather_today_header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  padding: 1rem 2rem;
-  display: flex;
-  flex-direction: column;
-}
-
-.weather_today_grid {
-  box-sizing: border-box;
-  padding: 0 1rem;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: .25rem;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-areas:
-    'one'
-    'two'
-    'three'
-    'four'
-    'five'
-    'six';
-}
-
-.weather_today_grid p {
-  color: rgb(96, 2, 96);
-  font-weight: bold;
-  text-align: center;
-  font-size: var(--FSmd);
-}
-
-.weather_today_grid_child {
-  background-color: rgba(0, 128, 128, .7);
-  display: flex;
-  justify-content: space-between;
-}
-
-.weather_today_grid_child > p {
-  word-wrap:break-word;
-}
-
-.weather_today_grid_child > *:nth-child(1) {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.weather_today_grid > * {
-  margin: 0;
-  padding: 0;
-}
-
-.weather_today_p {
+.component_wrapper {
+  min-height: 67vh;
+  border: 2px solid yellow;
   position: relative;
 }
 
-.weather_today_p > p {
-  box-sizing: border-box;
-  padding: .25rem;
-}
-
-.weather-today-clock {
+.current_temp {
   text-align: center;
+  font-size: 7rem;
 }
 
-.weather-today-clock * {
-  font-size: var(--FSsm);
+.section_day_place {
+  padding: 5rem 0 5rem 0;
+  border: 3px solid red;
 }
 
+.title {
+  text-align: center;
+  font-size: 3rem;
+  border: 1px solid teal;
+}
 
-  @media (min-width: 480px) {
-    .weather-today-container {
+.weather_cards_wrapper {
+  border: 2px solid pink;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  min-height: 120px;
 
-    }
+  display: flex;
+  justify-content: space-between;
+}
 
-    .weather-today-clock {
-      align-self: auto;
-    }
-  }
+.weather_cards_wrapper__second_child {
+  border: 2px solid green;
+  transform: translateY(-2rem);
+}

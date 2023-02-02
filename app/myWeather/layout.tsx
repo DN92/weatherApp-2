@@ -1,4 +1,4 @@
-import styles from './myWeather2.module.css';
+import styles from './myWeather.module.css';
 
 function Layout({ children }: ReactChildren): React.ReactElement {
   return (

@@ -1,6 +1,6 @@
 import { getIconFromDesc } from '@/utility/weatherIconDic';
 import { toTitleCase } from '@/utility/functions';
-import styles from './miniCard.module.css';
+import styles from './weatherMiniCard.module.css';
 
 type Props = {
   step: number;
