@@ -48,6 +48,8 @@ declare global {
 
   type ReactChildren = { children: React.ReactNode };
 
+  type TimeString = '[0-9]:[0-9]{0,2}' | '[0-9][0-9]:[0-9]{0,1}';
+
   interface WeatherData {
     coord?: { lon: number, lat: number },
     weather?: Array<WeatherSummary>,

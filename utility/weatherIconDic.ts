@@ -60,9 +60,9 @@ export function getIconFromDesc(description: string, isNight: boolean = false): 
   if (clnString.length < 2) return '';
   if (isNight) {
     if (clnString.includes('clear')) {
-      return nightIconDic.sunny;
+      return nightIconDic.clear;
     }
-    const classNameResult = nightIconDicKeys.find((ele) => ele.toLowerCase().includes(clnString)) ?? '';
+    const classNameResult = nightIconDicKeys.find((ele) => clnString.includes(ele.toLowerCase())) ?? '';
     if (classNameResult) return nightIconDic[classNameResult];
   }
   return clnString.includes('clear') ?

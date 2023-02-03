@@ -3,6 +3,7 @@ import { toTitleCase } from '@/utility/functions';
 import styles from './weatherMiniCard.module.css';
 
 type Props = {
+  isNight: boolean;
   step: number;
   weather: WeatherVariables,
   passedClasses?: Array<string>;
@@ -15,26 +16,29 @@ function WeatherMiniCard({
   step,
   weather,
   passedClasses = [],
+  isNight = false,
 }: Props): React.ReactElement {
   const date: Date = new Date();
   const displayHour: number = (date.getHours() + (step * 3)) % 24;
   const displayHourAsString: string = `${displayHour}:00`;
   const descriptor = toTitleCase(weather.description.trim()).split(' ').slice(0, 2);
 
+  console.log('isNight', isNight);
+
   return (
     <div className={[passedClasses.join(' '), styles.mini_card_wrapper].join(' ')}>
       <section className={`${styles.section_time_descriptor}`}>
-        <p className="white-text text_shadow_blue_600">{displayHourAsString}</p>
-        <p className="white-text text_shadow_blue_600">
+        <p className="white-text text_shadow_blue_500">{displayHourAsString}</p>
+        <p className="white-text text_shadow_blue_500">
           {Math.floor(weather.temp)}
           {degC}
         </p>
         {descriptor.map((line, idx) => (
-          <p key={`${line}${idx}`} className="white-text text_shadow_blue_600">{line}</p>
+          <p key={`${line}${idx}`} className="white-text text_shadow_blue_500">{line}</p>
         ))}
       </section>
       <section className={`${styles.section_icon} `}>
-        <div className={`white-text text_shadow_blue_600 ${'icon wi'} ${getIconFromDesc(weather.description) ?? ''}`} />
+        <div className={`white-text text_shadow_blue_600 icon wi ${getIconFromDesc(weather.description, isNight) ?? ''}`} />
 
       </section>
     </div>
