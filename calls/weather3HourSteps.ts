@@ -15,7 +15,6 @@ export default async function getWeather3HourSteps(
     const response = await fetch(domain + path, { next: { revalidate: 60 * 60 } });
     if (response.status >= 200 && response.status <= 299) {
       const data = await response.json();
-      console.log('DATA RAW:: ', data);
       const { city, list } = data;
       const { name, sunrise, sunset } = city; // sunrise and sunset return UNIX time
       const revampedList = list.map((ele) => (

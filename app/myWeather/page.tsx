@@ -1,5 +1,5 @@
 import getWeather3HourSteps from '../../calls/weather3HourSteps';
-import TheTime from './(components)/TheTime';
+import DayDate from './(components)/DayDate';
 import styles from './myWeather.module.css';
 import WeatherMiniCard from './(components)/WeatherMiniCard';
 import { getIconFromDesc } from '../../utility/weatherIconDic';
@@ -61,32 +61,30 @@ const MyWeather = async ({ searchParams }: Props): Promise<React.ReactElement> =
   const humidity = getAverageHumidity(weather.list);
   // end guard
 
-  // console.log('three-hour', weather);
-
   return (
     <div className={styles.component_wrapper}>
-      <section className={`${styles.section_day_place} blue-text`}>
-        <TheTime />
+      <section className={`${styles.section_day_place} white-text bold text_shadow_blue_500`}>
+        <DayDate />
         <div className={`${styles.title_wrapper}`}>
-          <h3 className={`${styles.title}`}>{weather.name.toUpperCase()}</h3>
+          <h3 className={`${styles.title} white-text bold text_shadow_blue_600`}>{weather.name.toUpperCase()}</h3>
           <div className={`${styles.title_subsection}`}>
             <aside className={`${styles.title_subsection_aside}`}>
-              <p className="icon_small wi wi-sunrise" />
+              <p className="icon_small wi wi-sunrise white-text text_shadow_blue_500" />
               <span>{`${weather.sunrise.getHours()}:${weather.sunrise.getMinutes().toString().padStart(2, '0')}`}</span>
             </aside>
             <aside className={`${styles.title_subsection_aside} row_reverse`}>
-              <p className=" icon_small wi wi-sunset" />
+              <p className=" icon_small wi wi-sunset white-text text_shadow_blue_500" />
               <span>{`${weather.sunset.getHours()}:${weather.sunset.getMinutes().toString().padStart(2, '0')}`}</span>
             </aside>
           </div>
         </div>
       </section>
-      <section className={`${styles.current_temp} blue-text`}>
-        <p className={`${styles.current_temp_text}`}>
+      <section className={`${styles.current_temp}`}>
+        <p className={`${styles.current_temp_text} white-text bold text_shadow_blue_700`}>
           {Math.floor(weather.list[0]?.temp) ?? 'unknown'}
           {degC}
         </p>
-        <p className={`${styles.current_description_text}`}>{weather.list[0]?.description}</p>
+        <p className={`${styles.current_description_text} white-text bold text_shadow_blue_500`}>{weather.list[0]?.description}</p>
       </section>
       <section className={`${styles.weather_cards_wrapper}`}>
         {weather.list.length >= 4 && (
@@ -97,67 +95,7 @@ const MyWeather = async ({ searchParams }: Props): Promise<React.ReactElement> =
           </>
         )}
       </section>
-      <section className={`${styles.foot_icon} wi ${getIconFromDesc(weather.list[0]?.description ?? '')}`} />
-
-      {/* <div className="">
-        <div className="">
-          <div className="">
-            <p className="FSml">{weather?.description && toTitleCase(weather.description)}</p>
-            <p className="FSmd">Expect to See</p>
-          </div>
-          <div className="icon-wrapper">
-            <i className="icon wi wi-cloud" />
-          </div>
-        </div>
-        <div className="">
-          <div className="">
-            <p className="FSlg">{average + degC}</p>
-            <p className="FSmd">
-              Today
-              {'\''}
-              s Average
-            </p>
-          </div>
-          <div className="icon-wrapper">
-            <i className="icon wi wi-sunset" />
-          </div>
-        </div>
-        <div className="">
-          <div className="">
-            <p className="FSlg">{max + degC}</p>
-            <p className="FSmd">
-              Today
-              {'\''}
-              s High
-            </p>
-          </div>
-          <div className="icon-wrapper">
-            <i className="icon wi wi-thermometer" />
-          </div>
-        </div>
-        <div className="">
-          <div className="">
-            <p className="FSlg">{min + degC}</p>
-            <p className="FSmd">
-              Today
-              {'\''}
-              s Low
-            </p>
-          </div>
-          <div className="icon-wrapper">
-            <i className="icon wi wi-thermometer-exterior" />
-          </div>
-        </div>
-        <div className="">
-          <div className="">
-            <p className="FSlg">{humidity === -1 ? 'Could not obtain humidity' : `${humidity}%`}</p>
-            <p className="FSmd">Average Humidity</p>
-          </div>
-          <div className="icon-wrapper">
-            <i className="icon wi wi-humidity" />
-          </div>
-        </div>
-      </div> */}
+      <section className={`${styles.foot_icon} wi ${getIconFromDesc(weather.list[0]?.description ?? '')} text_shadow_blue_700`} />
     </div>
   );
 };

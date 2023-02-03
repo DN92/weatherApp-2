@@ -1,15 +1,17 @@
 .sun_in_blue_sky {
-  background-image: url('/images/sunInblueSky5x2.png');
-  background-repeat: no-repeat;
-  background-size: 100% 95% fill;
-  background-position: 50% 50%;
-  -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
-  filter: blur(3px);
+  background-image: url('/images/skyOnly.jpg');
 }
 
 .sun_in_clouds {
   background-image: url('/images/sunInClouds1.jpg');
-  background-size: cover;
   background-position: 0% -8rem;
+}
+
+.night_sky_clear {
+  background-image: url('/images/nightSky1.jpg');
+}
+
+.background_image_cover {
+  background-size: cover;
   background-repeat: no-repeat;
 }

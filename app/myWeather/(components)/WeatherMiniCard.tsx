@@ -24,17 +24,17 @@ function WeatherMiniCard({
   return (
     <div className={[passedClasses.join(' '), styles.mini_card_wrapper].join(' ')}>
       <section className={`${styles.section_time_descriptor}`}>
-        <p>{displayHourAsString}</p>
-        <p>
+        <p className="white-text text_shadow_blue_600">{displayHourAsString}</p>
+        <p className="white-text text_shadow_blue_600">
           {Math.floor(weather.temp)}
           {degC}
         </p>
         {descriptor.map((line, idx) => (
-          <p key={`${line}${idx}`}>{line}</p>
+          <p key={`${line}${idx}`} className="white-text text_shadow_blue_600">{line}</p>
         ))}
       </section>
-      <section className={`${styles.section_icon}`}>
-        <div className={`${'icon wi'} ${getIconFromDesc(weather.description) ?? ''}`} />
+      <section className={`${styles.section_icon} `}>
+        <div className={`white-text text_shadow_blue_600 ${'icon wi'} ${getIconFromDesc(weather.description) ?? ''}`} />
 
       </section>
     </div>

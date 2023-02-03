@@ -20,8 +20,8 @@
   aspect-ratio: 1 / 1;
   border-radius: 100%;
   transform: translate(-13.1%, 57.5%);
-  background: radial-gradient(rgb(0,106,182), lightblue);
-  overflow: hidden;
+  /* background: radial-gradient(rgb(0,106,182), lightblue); */
+  /* overflow: hidden; */
 
   display: flex;
   justify-content: center;

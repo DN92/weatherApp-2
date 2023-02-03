@@ -23,12 +23,12 @@ export default function RootLayout({ children }: { children: React.ReactElement;
         {/* no elements above */}
         <div className={`${styles.app_wrapper}`}>
           <div className={`${styles.component_wrapper} `}>
-            <div className={`${styles.component} sun_in_clouds`}>
+            <div className={`${styles.component} sun_in_clouds background_image_cover`}>
               {children}
             </div>
           </div>
           <div className={`${styles.sun_circle_outer} yellow_opa375 footer`}>
-            <div className={`${styles.sun_circle_inner} sun_in_blue_sky`} />
+            <div className={`${styles.sun_circle_inner} sun_in_blue_sky background_image_cover`} />
           </div>
         </div>
         {/* no elements below */}

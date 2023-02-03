@@ -17,17 +17,17 @@
 .current_description_text{
   font-size: 1.5rem;
   font-weight: bold;
+  padding: 1rem;
 }
 
 .foot_icon {
   position: absolute;
-  bottom: 0;
+  bottom: .5rem;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   z-index: 10;
-  padding: 3rem;
   font-size: 6rem;
-  font-weight: bold;
+  /* font-weight: bold; */
   color: white;
 }
 
@@ -38,15 +38,8 @@
 
 .title {
   text-align: center;
-  font-size: 3rem;
+  font-size: 2.25rem;
   /* border: 2px solid teal; */
-}
-
-.title_subsection_aside {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: .5rem
 }
 
 .title_subsection {
@@ -57,7 +50,13 @@
   justify-content: space-between;
   align-items: flex-end;
   transform: translateY(.5rem);
+}
 
+.title_subsection_aside {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem
 }
 
 .title_wrapper {
@@ -71,9 +70,11 @@
   left: 50%;
   transform: translateX(-50%);
   min-height: 7.5rem;
+  width: 100%;
 
   display: flex;
   justify-content: space-between;
+  /* gap: 3rem; */
 }
 
 .weather_cards_wrapper__second_child {
