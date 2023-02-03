@@ -22,9 +22,9 @@
 
 .foot_icon {
   position: absolute;
-  bottom: .5rem;
+  bottom: 0rem;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -30%);
   z-index: 10;
   font-size: 6rem;
   /* font-weight: bold; */
