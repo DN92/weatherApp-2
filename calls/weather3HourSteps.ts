@@ -2,6 +2,8 @@
 
 import { toTitleCase } from '@/utility/functions';
 
+//  TODO:: ERRORHANDLING
+
 export default async function getWeather3HourSteps(
   lat: string,
   lon: string,
@@ -22,14 +24,15 @@ export default async function getWeather3HourSteps(
       ));
       return {
         name,
+        now: new Date(Date.now()),
         sunrise: new Date((sunrise * 1000)),
         sunset: new Date((sunset * 1000)),
+        isNight: Date.now() < sunrise * 1000 && Date.now() > sunset * 1000,
         list: revampedList,
       };
     }
-    // else
-    throw Error('response outside 200 range, from function: getWeather3HourSteps');
   } catch (error: unknown) {
+    throw Error('response outside 200 range, from function: getWeather3HourSteps');
     console.log(error);
     return undefined; // this return statement is only here because ts is complaining and i don't see a better solution.
   }

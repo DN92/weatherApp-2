@@ -2,6 +2,8 @@ import { getIconFromDesc } from '@/utility/weatherIconDic';
 import { toTitleCase } from '@/utility/functions';
 import styles from './weatherMiniCard.module.css';
 
+// TODO: Figure out why time conversion function for isNight arent' working
+
 type Props = {
   isNight: boolean;
   step: number;
@@ -22,8 +24,6 @@ function WeatherMiniCard({
   const displayHour: number = (date.getHours() + (step * 3)) % 24;
   const displayHourAsString: string = `${displayHour}:00`;
   const descriptor = toTitleCase(weather.description.trim()).split(' ').slice(0, 2);
-
-  console.log('isNight', isNight);
 
   return (
     <div className={[passedClasses.join(' '), styles.mini_card_wrapper].join(' ')}>

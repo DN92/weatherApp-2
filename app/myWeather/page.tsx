@@ -61,10 +61,6 @@ const MyWeather = async ({ searchParams }: Props): Promise<React.ReactElement> =
   const sunriseAsNum = millisecondsToMilitaryTime(weather.sunrise.getTime());
   const sunsetAsNum = millisecondsToMilitaryTime(weather.sunset.getTime() - 7 * 60 * 60 * 1000);
   const now = millisecondsToMilitaryTime(Date.now());
-  console.log('rise', sunriseAsNum);
-  console.log('rise', sunsetAsNum);
-  console.log('NOW:: ', now);
-  const isNight = (now < sunriseAsNum && now > sunsetAsNum);
   const [min, max, average] = getMaxAndMinAndAvg(weather.list);
   const humidity = getAverageHumidity(weather.list);
   // end guard
@@ -97,13 +93,13 @@ const MyWeather = async ({ searchParams }: Props): Promise<React.ReactElement> =
       <section className={`${styles.weather_cards_wrapper}`}>
         {weather.list.length >= 4 && (
           <>
-            <WeatherMiniCard step={1} weather={weather.list[1]} isNight />
-            <WeatherMiniCard step={2} weather={weather.list[2]} isNight passedClasses={[styles.weather_cards_wrapper__second_child]} />
-            <WeatherMiniCard step={3} weather={weather.list[3]} isNight />
+            <WeatherMiniCard step={1} weather={weather.list[1]} isNight={weather.isNight} />
+            <WeatherMiniCard step={2} weather={weather.list[2]} isNight={weather.isNight} passedClasses={[styles.weather_cards_wrapper__second_child]} />
+            <WeatherMiniCard step={3} weather={weather.list[3]} isNight={weather.isNight} />
           </>
         )}
       </section>
-      <section className={`${styles.foot_icon} wi ${getIconFromDesc(weather.list[0].description), isNight} text_shadow_blue_700`} />
+      <section className={`${styles.foot_icon} wi ${getIconFromDesc(weather.list[0].description, weather.isNight)} text_shadow_blue_700`} />
     </div>
   );
 };

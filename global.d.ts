@@ -39,8 +39,10 @@ declare global {
 
   type OpenWeatherThreeHourCall = {
     name: string,
+    now: Date,
     sunrise: Date,
     sunset: Date,
+    isNight: boolean,
     list: Array<WeatherVariables>
   };
 
